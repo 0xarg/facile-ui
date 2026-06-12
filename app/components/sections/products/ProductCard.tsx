@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
             {product.price}
           </span>
           <Button
-            href="/products"
+            href={`/checkout?product=${product.id}`}
             size="sm"
             className="bg-black px-5 text-white hover:bg-black/90"
           >

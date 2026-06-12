@@ -1,6 +1,8 @@
 export type ProductCategory = "nfc" | "metal" | "bands" | "bundles";
 
 export type Product = {
+  /** Maps to a CATALOG id in checkout-data.ts for the cart. */
+  id: string;
   name: string;
   tagline: string;
   price: string;
@@ -51,6 +53,7 @@ export const categoryInfo: Record<
 
 export const products: Product[] = [
   {
+    id: "standard",
     name: "Standard Card",
     tagline: "Matte PVC. NFC and QR.",
     price: "From $29",
@@ -59,6 +62,7 @@ export const products: Product[] = [
     image: { src: "/products/standard-card.png", alt: "Standard matte PVC NFC card" },
   },
   {
+    id: "eco",
     name: "Eco Card",
     tagline: "Recycled stock. Same tap.",
     price: "From $34",
@@ -67,6 +71,7 @@ export const products: Product[] = [
     image: { src: "/products/standard-card.png", alt: "Recycled eco NFC card" },
   },
   {
+    id: "metal",
     name: "Metal Card",
     tagline: "Brushed metal. Heavy. Lasting.",
     price: "From $49",
@@ -75,6 +80,7 @@ export const products: Product[] = [
     image: { src: "/products/metal-card.png", alt: "Brushed metal NFC card" },
   },
   {
+    id: "black-metal",
     name: "Black Metal Card",
     tagline: "Matte black. Stealth edge.",
     price: "From $59",
@@ -83,6 +89,7 @@ export const products: Product[] = [
     image: { src: "/products/metal-card.png", alt: "Matte black metal NFC card" },
   },
   {
+    id: "band",
     name: "Smart Band",
     tagline: "Wearable NFC for events.",
     price: "From $39",
@@ -91,6 +98,7 @@ export const products: Product[] = [
     image: { src: "/products/band.png", alt: "Black silicone NFC smart band" },
   },
   {
+    id: "premium-band",
     name: "Premium Band",
     tagline: "Brushed metal. Heavy. Lasting.",
     price: "From $79",
@@ -99,6 +107,7 @@ export const products: Product[] = [
     image: { src: "/products/band.png", alt: "Brushed metal NFC smart band" },
   },
   {
+    id: "premium-bundle",
     name: "Premium Bundle",
     tagline: "Two cards. Every finish.",
     price: "From $79",
@@ -107,6 +116,7 @@ export const products: Product[] = [
     image: { src: "/products/premium-bundle.png", alt: "Premium bundle of two metal cards" },
   },
   {
+    id: "team-pack",
     name: "Team Pack",
     tagline: "Five cards. One profile hub.",
     price: "From $129",

@@ -21,7 +21,7 @@ export function ShopHero() {
             shipping, and your profile live the moment it arrives.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Button href="https://shop.facile.me" size="lg">
+            <Button href="#catalog" size="lg">
               Shop Now
             </Button>
             <Button href="#catalog" variant="outline" size="lg">

@@ -10,6 +10,7 @@ type Category = "all" | "plates" | "metal" | "bands" | "bundles";
 type Tone = "dark" | "steel" | "white";
 
 type Product = {
+  id: string;
   name: string;
   tag: string;
   desc: string;
@@ -19,14 +20,14 @@ type Product = {
 };
 
 const PRODUCTS: Product[] = [
-  { name: "Facile Standard", tag: "NFC Card", desc: "Matte PVC. NFC + QR.", price: "From $29", tone: "dark", categories: ["plates"] },
-  { name: "Facile Metal", tag: "Metal Card", desc: "Brushed steel. Weighted.", price: "$49", tone: "steel", categories: ["metal"] },
-  { name: "Facile White", tag: "NFC Card", desc: "Clean matte white finish.", price: "$29", tone: "white", categories: ["plates"] },
-  { name: "Premium Band", tag: "Smart Band", desc: "NFC wearable. Always on.", price: "$79", tone: "dark", categories: ["bands"] },
-  { name: "NFC Sticker (5-pack)", tag: "NFC Sticker", desc: "Stick anywhere. Tap instantly.", price: "$14", tone: "dark", categories: ["plates"] },
-  { name: "Standard Bundle", tag: "Bundle", desc: "Card + profile + accessories.", price: "$69", tone: "dark", categories: ["bundles"] },
-  { name: "Metal Bundle", tag: "Bundle", desc: "Premium everything, bundled.", price: "$89", tone: "steel", categories: ["metal", "bundles"] },
-  { name: "Gift Card", tag: "Gift", desc: "Let them choose.", price: "From $29", tone: "white", categories: ["bundles"] },
+  { id: "standard", name: "Facile Standard", tag: "NFC Card", desc: "Matte PVC. NFC + QR.", price: "From $29", tone: "dark", categories: ["plates"] },
+  { id: "metal", name: "Facile Metal", tag: "Metal Card", desc: "Brushed steel. Weighted.", price: "$49", tone: "steel", categories: ["metal"] },
+  { id: "white", name: "Facile White", tag: "NFC Card", desc: "Clean matte white finish.", price: "$29", tone: "white", categories: ["plates"] },
+  { id: "premium-band", name: "Premium Band", tag: "Smart Band", desc: "NFC wearable. Always on.", price: "$79", tone: "dark", categories: ["bands"] },
+  { id: "sticker", name: "NFC Sticker (5-pack)", tag: "NFC Sticker", desc: "Stick anywhere. Tap instantly.", price: "$14", tone: "dark", categories: ["plates"] },
+  { id: "standard-bundle", name: "Standard Bundle", tag: "Bundle", desc: "Card + profile + accessories.", price: "$69", tone: "dark", categories: ["bundles"] },
+  { id: "metal-bundle", name: "Metal Bundle", tag: "Bundle", desc: "Premium everything, bundled.", price: "$89", tone: "steel", categories: ["metal", "bundles"] },
+  { id: "gift", name: "Gift Card", tag: "Gift", desc: "Let them choose.", price: "From $29", tone: "white", categories: ["bundles"] },
 ];
 
 const TABS: { id: Category; label: string; icon: string }[] = [
@@ -60,7 +61,7 @@ function ProductCard({ product }: { product: Product }) {
             {product.price}
           </span>
           <Button
-            href="https://shop.facile.me"
+            href={`/checkout?product=${product.id}`}
             size="sm"
             className="bg-black text-white hover:bg-black/90"
           >

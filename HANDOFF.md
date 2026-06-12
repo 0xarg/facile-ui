@@ -2,6 +2,26 @@
 
 Living doc to resume work without losing context. Last updated: 2026-06-12.
 
+## Round 2 — navigation, Devices, logo, working checkout (2026-06-12)
+- **Navbar** (`app/components/layout/Navbar.tsx`): links now Features · Devices · Shops · Pay · FAQ.
+- **Devices `/devices`** built (frame `88:1264`): `app/devices/page.tsx` + `sections/devices/*`
+  (8 sections) + images in `public/devices/`.
+- **Footer** (`app/components/layout/Footer.tsx`): dropped all dead `#` links; columns now
+  PRODUCT (Features/Devices/Shops/Pay/Pricing) + SUPPORT (FAQ/Designs). Logo now uses the same
+  `<Wordmark/>` as the header (footer scoped `.light` so the wordmark stays dark on its white bg).
+- **Logo**: header + footer unified on `<Wordmark/>` (single source). ⏳ A NEW logo from the
+  client's Figma link is still pending — when provided, export to `public/brand/` and update the
+  one `Wordmark.tsx`; both header & footer pick it up.
+- **Checkout is now a working mock flow** (no backend/real payments): new
+  `app/components/cart/CartContext.tsx` (localStorage-persisted) mounted in `app/checkout/layout.tsx`.
+  Product buttons across products/shops/devices link to `/checkout?product=<id>`; `checkout-data.ts`
+  is the catalog + promo/shipping config. Cart reflects product+qty, promo `FACILE10`/`WELCOME15`
+  apply, order summary + totals are live, shipping/payment forms validate before advancing, and
+  confirmation shows the ordered item then clears the cart. Verified end-to-end in the browser.
+  (The explicit "Go to Shopify Store" CTA in `ShopCta.tsx` stays external by design.)
+- `pnpm build` green (14 routes); new/changed files lint-clean (pre-existing `ThemeToggle.tsx`
+  lint error remains, untouched). No mobile horizontal overflow on the new/changed routes.
+
 ## What this is
 Marketing + commerce site for **Facile**, an NFC "all-in-one link" smart card
 (Linktree-style profile on a tap-to-share physical card). Dark, premium aesthetic.
@@ -56,30 +76,34 @@ reuses `ui`/`layout`/`motion`/`lib` (never edits them), creates only its own rou
 (dark vs light panel) to Figma, adds responsive + tasteful motion, verifies its route
 returns HTTP 200. See memory `facile-build-workflow`.
 
-## Status (precise — page agents were cut off by a session limit mid-build)
-- ✅ **Landing `/`** — complete, 8 sections faithful to Figma, motion, responsive.
-  `pnpm build` passes; verified in browser.
-- ✅ **Products `/products`** — complete: route + `sections/products/*` (ProductsHero,
-  ProductGrid/ProductCard, products-data) + 8 assets in `public/products/`.
-- 🟡 **Shops** — `sections/shops/*` exist (ShopHero, CardVisual, +2) but **no
-  `app/shops/page.tsx`**. Needs the route file composing the sections (frame `210:3607`).
-- 🟡 **Features** — `sections/features/*` (2 files) exist, **no `app/features/page.tsx`**
-  (frame `211:4388`, long page — likely needs more sections too).
-- 🟡 **FAQ page** — `sections/faq-page/*` (FaqHero, faq-data, +2) exist, **no
-  `app/faq/page.tsx`** (frame `213:5396`).
-- 🟡 **Checkout** — only `app/checkout/layout.tsx` (metadata) exists; **no
-  `app/checkout/page.tsx`** and **no `sections/checkout/*`** (frames `128:1371`,
-  `131:2244/2402/2547/2713`). Build as a client multi-step flow, designed UI only.
-- 🔴 **Facile Pay `/pay`** — not started (no files). Frame `244:62`.
-- ⏳ Then: responsive QA on all pages; light-mode polish (some sections hardcode colors,
-  won't fully adapt to light — default/dark is what the client reviews); deploy to Vercel.
+## Status — ALL PAGES COMPLETE ✅ (`pnpm build` green, 13 static routes)
+- ✅ **Landing `/`** — 8 sections faithful to Figma, motion, responsive.
+- ✅ **Products `/products`** — route + `sections/products/*` + 8 assets in `public/products/`.
+- ✅ **Shops `/shops`** — `app/shops/page.tsx` composes `ShopHero → TrustRow → Catalog →
+  PopularRow → ShopCta` (frame `210:3607`; PopularRow + ShopCta added to match the frame).
+- ✅ **Features `/features`** — `app/features/page.tsx`, 7 sections (FeaturesHero,
+  DigitalProfile + new LinkInBio, Analytics, Customisation, ShareYourWay, FeaturesCta) from
+  frame `211:4388`. All visuals CSS-built.
+- ✅ **FAQ `/faq`** — `app/faq/page.tsx` composes `FaqHero → FaqProductStrip (new) →
+  FaqAccordion → FaqContact` (frame `213:5396`).
+- ✅ **Checkout** — separate routes: `/checkout` (cart), `/checkout/shipping`,
+  `/checkout/payment`, `/checkout/confirmation` + shared `sections/checkout/*`
+  (StepIndicator, OrderSummary, CheckoutShell, Field, CartReview, ShippingForm, PaymentForm,
+  Confirmation, checkout-data). Designed UI only, mock data, no backend (frames `128:1371`,
+  `131:2244/2402/2547/2713`).
+- ✅ **Facile Pay `/pay`** — `app/pay/page.tsx`, 8 sections in `sections/pay/*` (frame
+  `244:62`). All CSS-built (matte-black card via `PayCardVisual`).
 
-### To finish each 🟡/🔴 page
-Wire up `app/<route>/page.tsx` that imports the existing `sections/<route>/*` (for
-Shops/Features/FAQ), or run a fresh subagent with the frame node + the foundation
-contract (Features/Pay likely need additional sections built; Checkout needs the whole
-flow). Confirm each route returns 200, then `pnpm build`. The orphan section files are
-committed and safe to build on.
+### QA done (2026-06-12)
+- `pnpm build` green (TS clean); `pnpm lint` clean for all new page/section files (2 remaining
+  lint errors are pre-existing in foundation `ThemeToggle.tsx` / `Button.tsx`, untouched).
+- Every route returns 200; no mobile horizontal overflow. Fixed: `/checkout` cart grid
+  overflow (added `min-w-0` + `minmax(0,1fr)` track in `CartReview.tsx`).
+- Dark mode (the shipped default — `defaultTheme="dark"`, `enableSystem={false}`) verified
+  correct on all pages. Light-mode fix: `PayHero` hero is always dark, so it now carries the
+  `dark` token-scope class (its ghost CTA was invisible in light mode otherwise).
+- Known/accepted: other hardcoded-dark sections aren't pixel-perfect in light mode — dark is
+  the client's review target (per design). No breakage, just not fully theme-adaptive.
 
 ## Run / verify
 - Dev: `pnpm dev` → http://localhost:3000 (falls back to **3003** if 3000 busy).
@@ -92,9 +116,7 @@ Option A (fastest): client runs `npx vercel` in the project and follows prompts 
 preview URL. Option B: push to a GitHub repo, then connect it on vercel.com for
 per-push previews. No env vars / backend required (fully static).
 
-## Resume checklist if interrupted
-1. `git status` / check which `app/<route>/page.tsx` files exist.
-2. `pnpm dev`, hit each route, look for 500s; tail `/tmp/facile-dev.log`.
-3. For any missing/broken page, re-run a subagent with that page's frame node (table
-   above) and the foundation contract.
-4. `pnpm build` must pass. Then responsive + light-mode polish, then deploy.
+## Remaining
+Only deploy is left (needs the client's Vercel login — see the Deploy section above). All
+pages are built, the build is green, and basic responsive/dark-mode QA is done. Optional
+future polish: full light-mode theming of the hardcoded-dark sections.
