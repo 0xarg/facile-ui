@@ -56,14 +56,30 @@ reuses `ui`/`layout`/`motion`/`lib` (never edits them), creates only its own rou
 (dark vs light panel) to Figma, adds responsive + tasteful motion, verifies its route
 returns HTTP 200. See memory `facile-build-workflow`.
 
-## Status
-- ✅ **Milestone 1**: design system + full landing `/` (8 sections, faithful to Figma,
-  motion, responsive). `pnpm build` passes; verified in browser.
-- 🔄 **In progress**: Products, Shops, Features, Facile Pay, FAQ page, Checkout flow
-  (parallel subagents). Verify each route 200 + screenshot-diff vs Figma when done.
-- ⏳ **Pending**: full responsive QA pass on all pages; light-mode polish (some agent
-  sections hardcode colors and won't fully adapt to light theme — primary/default is
-  dark, which is what the client reviews); **deploy to Vercel** (needs client's auth).
+## Status (precise — page agents were cut off by a session limit mid-build)
+- ✅ **Landing `/`** — complete, 8 sections faithful to Figma, motion, responsive.
+  `pnpm build` passes; verified in browser.
+- ✅ **Products `/products`** — complete: route + `sections/products/*` (ProductsHero,
+  ProductGrid/ProductCard, products-data) + 8 assets in `public/products/`.
+- 🟡 **Shops** — `sections/shops/*` exist (ShopHero, CardVisual, +2) but **no
+  `app/shops/page.tsx`**. Needs the route file composing the sections (frame `210:3607`).
+- 🟡 **Features** — `sections/features/*` (2 files) exist, **no `app/features/page.tsx`**
+  (frame `211:4388`, long page — likely needs more sections too).
+- 🟡 **FAQ page** — `sections/faq-page/*` (FaqHero, faq-data, +2) exist, **no
+  `app/faq/page.tsx`** (frame `213:5396`).
+- 🟡 **Checkout** — only `app/checkout/layout.tsx` (metadata) exists; **no
+  `app/checkout/page.tsx`** and **no `sections/checkout/*`** (frames `128:1371`,
+  `131:2244/2402/2547/2713`). Build as a client multi-step flow, designed UI only.
+- 🔴 **Facile Pay `/pay`** — not started (no files). Frame `244:62`.
+- ⏳ Then: responsive QA on all pages; light-mode polish (some sections hardcode colors,
+  won't fully adapt to light — default/dark is what the client reviews); deploy to Vercel.
+
+### To finish each 🟡/🔴 page
+Wire up `app/<route>/page.tsx` that imports the existing `sections/<route>/*` (for
+Shops/Features/FAQ), or run a fresh subagent with the frame node + the foundation
+contract (Features/Pay likely need additional sections built; Checkout needs the whole
+flow). Confirm each route returns 200, then `pnpm build`. The orphan section files are
+committed and safe to build on.
 
 ## Run / verify
 - Dev: `pnpm dev` → http://localhost:3000 (falls back to **3003** if 3000 busy).
