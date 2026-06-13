@@ -23,7 +23,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="light border-t border-black/[0.06] bg-white text-[#0a0a0a]">
+    <footer className="light border-t border-black/[0.06] bg-panel text-[#0a0a0a]">
       <div className="mx-auto w-full max-w-[1280px] px-5 py-16 sm:px-8 lg:px-20 lg:py-20">
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           {/* Brand */}

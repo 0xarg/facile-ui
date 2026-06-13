@@ -26,7 +26,7 @@ export function Wordmark({
   // Intrinsic ratio of the artwork is 1600×416 (≈3.846:1).
   const w = 122;
   const h = 32;
-  const common = "h-7 w-auto select-none";
+  const common = "h-5 w-auto select-none";
 
   if (surface === "light") {
     return (
