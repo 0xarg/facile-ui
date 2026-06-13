@@ -167,7 +167,7 @@ export function ShippingForm() {
 
         <Button
           type="submit"
-          variant="gradient"
+          variant="primary"
           size="lg"
           className="mt-2 w-full"
           disabled={submitting}

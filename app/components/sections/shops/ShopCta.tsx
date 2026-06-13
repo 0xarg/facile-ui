@@ -42,7 +42,7 @@ export function ShopCta() {
                 <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
                   <Button
                     href="https://shop.facile.me"
-                    variant="gradient"
+                    variant="primary"
                     size="lg"
                   >
                     Go to the Facile Store

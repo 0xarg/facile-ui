@@ -32,10 +32,10 @@ export function ShopHero() {
               built to be tapped.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Button href="#catalog" variant="gradient" size="lg">
+              <Button href="#catalog" variant="primary" size="lg">
                 Shop the lineup
               </Button>
-              <Button href="#popular" variant="outline" size="lg">
+              <Button href="#popular" variant="secondary" size="lg">
                 See what&apos;s trending
               </Button>
             </div>

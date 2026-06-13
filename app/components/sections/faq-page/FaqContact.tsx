@@ -86,7 +86,7 @@ export function FaqContact() {
                 </p>
                 <Button
                   href={card.href}
-                  variant="gradient"
+                  variant="primary"
                   size="md"
                   className="group mt-7 w-fit"
                 >

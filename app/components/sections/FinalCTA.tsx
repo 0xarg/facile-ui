@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
+import { Button } from "@/app/components/ui/Button";
 
 export function FinalCTA() {
   const reduce = useReducedMotion();
@@ -45,27 +45,15 @@ export function FinalCTA() {
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
-          {/* gradient-bordered dark pill */}
-          <span className="facile-gradient rounded-full p-px">
-            <Link
-              href="/products"
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-black px-7 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Shop Cards
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
-          </span>
-          {/* gradient-bordered light pill */}
-          <span className="facile-gradient rounded-full p-px">
-            <Link
-              href="/pay"
-              className="inline-flex h-11 items-center rounded-full bg-white px-7 text-sm font-medium text-black transition-opacity hover:opacity-90"
-            >
-              Create Free Profile
-            </Link>
-          </span>
+          <Button href="/products" variant="primary">
+            Shop Cards
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Button>
+          <Button href="/pay" variant="secondary">
+            Create Free Profile
+          </Button>
         </div>
 
         <p className="mt-7 text-xs text-white/30">

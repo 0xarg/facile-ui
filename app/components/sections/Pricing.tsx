@@ -3,6 +3,7 @@ import { Container } from "@/app/components/ui/Container";
 import { SectionHeading } from "@/app/components/ui/SectionHeading";
 import { Card } from "@/app/components/ui/Card";
 import { Button } from "@/app/components/ui/Button";
+import { Badge } from "@/app/components/ui/Badge";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
 import { cn } from "@/app/lib/cn";
@@ -91,9 +92,12 @@ export function Pricing() {
                 )}
               >
                 {plan.featured ? (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#0a0a0a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+                  <Badge
+                    tone="solid"
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 text-[10px] font-semibold uppercase tracking-[0.12em]"
+                  >
                     Most popular
-                  </span>
+                  </Badge>
                 ) : null}
                 <div className="mb-6 h-[200px] w-full overflow-hidden rounded-xl">
                   <Image
@@ -143,7 +147,7 @@ export function Pricing() {
                   </span>
                   <Button
                     href="/products"
-                    variant="gradient"
+                    variant="primary"
                     size="sm"
                     className="group/btn px-6"
                   >

@@ -52,7 +52,7 @@ export function FeaturesCta() {
         </Reveal>
         <Reveal delay={0.15}>
           <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
-            <Button href="/products" variant="gradient" size="lg">
+            <Button href="/products" variant="primary" size="lg">
               Shop Cards
               <svg
                 width="14"
@@ -68,12 +68,9 @@ export function FeaturesCta() {
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </Button>
-            <a
-              href="/signup"
-              className="inline-flex h-12 items-center rounded-full bg-white px-7 text-base font-medium text-[#0a0a0a] transition-transform hover:-translate-y-0.5"
-            >
+            <Button href="/signup" variant="secondary" size="lg">
               Create Free Profile
-            </a>
+            </Button>
           </div>
         </Reveal>
         <Reveal delay={0.2}>

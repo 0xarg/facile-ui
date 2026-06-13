@@ -115,11 +115,11 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
             className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
           >
-            <Button href="/products" variant="gradient" size="lg" className="group">
+            <Button href="/products" variant="primary" size="lg" className="group">
               Order your card
               <ArrowIcon />
             </Button>
-            <Button href="/#how-it-works" variant="outline" size="lg">
+            <Button href="/#how-it-works" variant="secondary" size="lg">
               See how it works
             </Button>
           </motion.div>

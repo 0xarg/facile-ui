@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { Container } from "@/app/components/ui/Container";
+import { Card } from "@/app/components/ui/Card";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
 import { cn } from "@/app/lib/cn";
@@ -18,12 +19,15 @@ function BentoCard({
 }) {
   return (
     <StaggerItem className={cn("h-full", className)}>
-      <div className="group/card flex h-full flex-col gap-2.5 overflow-hidden rounded-[20px] border border-panel-border bg-white p-7 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
-        <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.15em] text-[#aaa]">
+      <Card
+        tone="panel"
+        className="group/card flex h-full flex-col gap-3 overflow-hidden rounded-[22px] p-7 transition duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.14)]"
+      >
+        <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#b3b0a8]">
           {tag}
         </p>
         {children}
-      </div>
+      </Card>
     </StaggerItem>
   );
 }
@@ -50,12 +54,12 @@ function CardVisual() {
 function WifiIcon() {
   return (
     <svg
-      width="36"
-      height="36"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="#0a0a0a"
-      strokeWidth="1.6"
+      strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
@@ -131,6 +135,34 @@ function ChartIcon() {
   );
 }
 
+function PhoneIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0a0a0a"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="5" y="2" width="14" height="20" rx="2.5" />
+      <path d="M11 18h2" />
+    </svg>
+  );
+}
+
+/** Consistent icon chip so every card's glyph reads as one family. */
+function IconChip({ children }: { children: ReactNode }) {
+  return (
+    <span className="flex size-11 items-center justify-center rounded-2xl border border-black/[0.06] bg-black/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+      {children}
+    </span>
+  );
+}
+
 /* ── section ─────────────────────────────────────────────────────────── */
 
 const ANALYTICS_BARS = [
@@ -143,21 +175,21 @@ export function Bento() {
       <Container size="full">
         {/* header */}
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-xl">
-              <h2 className="font-display text-4xl font-extrabold tracking-tight text-panel-foreground sm:text-5xl md:text-[60px] md:leading-[1.05]">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#b3b0a8]">
+                Everything in one
+              </span>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-panel-foreground sm:text-5xl md:text-[60px] md:leading-[1.04]">
                 The card.
                 <br className="hidden sm:block" /> The{" "}
                 <span className="text-gradient">profile</span>.
               </h2>
-              <p className="mt-4 text-lg text-panel-muted sm:text-xl">
+              <p className="mt-5 max-w-md text-lg leading-relaxed text-panel-muted">
                 Two products that act like one. The card you hand over, the
                 profile you control.
               </p>
             </div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#aaa]">
-              Everything in one
-            </span>
           </div>
         </Reveal>
 
@@ -180,9 +212,9 @@ export function Bento() {
 
           {/* ZERO FRICTION */}
           <BentoCard tag="Zero friction">
-            <div className="pt-1">
+            <IconChip>
               <WifiIcon />
-            </div>
+            </IconChip>
             <h3 className="mt-1 text-xl font-bold tracking-tight text-[#0a0a0a]">
               No app. Ever.
             </h3>
@@ -250,9 +282,9 @@ export function Bento() {
 
           {/* ALWAYS CURRENT */}
           <BentoCard tag="Always current">
-            <div className="pt-1">
+            <IconChip>
               <RefreshIcon />
-            </div>
+            </IconChip>
             <h3 className="mt-1 text-lg font-bold tracking-tight text-[#0a0a0a]">
               Update once. Everywhere.
             </h3>
@@ -264,9 +296,9 @@ export function Bento() {
 
           {/* BACKUP */}
           <BentoCard tag="Backup">
-            <div className="pt-1">
+            <IconChip>
               <QrIcon />
-            </div>
+            </IconChip>
             <h3 className="mt-1 text-lg font-bold tracking-tight text-[#0a0a0a]">
               No NFC? QR.
             </h3>
@@ -278,8 +310,10 @@ export function Bento() {
 
           {/* COMPATIBILITY */}
           <BentoCard tag="Compatibility">
-            <p className="pt-1 text-[28px] leading-none">📱</p>
-            <h3 className="mt-2 text-lg font-bold tracking-tight text-[#0a0a0a]">
+            <IconChip>
+              <PhoneIcon />
+            </IconChip>
+            <h3 className="mt-1 text-lg font-bold tracking-tight text-[#0a0a0a]">
               Every phone.
             </h3>
             <p className="text-xs leading-relaxed text-[#777]">
@@ -289,9 +323,9 @@ export function Bento() {
 
           {/* ANALYTICS — taller card */}
           <BentoCard tag="Analytics" className="lg:row-span-2">
-            <div className="pt-1">
+            <IconChip>
               <ChartIcon />
-            </div>
+            </IconChip>
             <h3 className="mt-1 text-xl font-bold tracking-tight text-[#0a0a0a]">
               Know who&apos;s connecting.
             </h3>

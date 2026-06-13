@@ -1,5 +1,6 @@
 import { Card } from "@/app/components/ui/Card";
 import { Button } from "@/app/components/ui/Button";
+import { Badge } from "@/app/components/ui/Badge";
 import { Media } from "@/app/components/ui/Media";
 import { Tilt } from "@/app/components/motion/Float";
 import { cn } from "@/app/lib/cn";
@@ -25,7 +26,7 @@ function ArrowIcon() {
 
 function FeatureItem({ feature }: { feature: string }) {
   return (
-    <li className="flex items-start gap-2.5 text-[13px] leading-snug text-panel-foreground/70">
+    <li className="flex items-start gap-2.5 text-[13px] leading-snug text-panel-foreground/60">
       <svg
         width="15"
         height="15"
@@ -47,15 +48,11 @@ function FeatureItem({ feature }: { feature: string }) {
 
 function PriceRow({ price, id }: { price: string; id: string }) {
   return (
-    <div className="mt-auto flex items-center justify-between pt-5">
-      <span className="font-display text-xl font-bold tracking-tight">
+    <div className="mt-auto flex items-center justify-between pt-6">
+      <span className="font-display text-lg font-medium tracking-tight text-panel-foreground/90">
         {price}
       </span>
-      <Button
-        href={`/checkout?product=${id}`}
-        size="sm"
-        className="bg-black px-5 text-white hover:bg-black/90"
-      >
+      <Button href={`/checkout?product=${id}`} variant="primary" size="sm">
         Shop Now
         <ArrowIcon />
       </Button>
@@ -66,14 +63,17 @@ function PriceRow({ price, id }: { price: string; id: string }) {
 /** Tiny pills shown over the product image (material / badge). */
 function ImageChips({ product }: { product: Product }) {
   return (
-    <div className="pointer-events-none absolute inset-x-4 top-4 z-10 flex items-start justify-between gap-2">
-      <span className="rounded-full bg-black/55 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.06em] text-white/90 backdrop-blur-md">
+    <div className="pointer-events-none absolute inset-x-5 top-5 z-10 flex items-start justify-between gap-2">
+      <span className="rounded-full bg-black/45 px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.08em] text-white/85 backdrop-blur-md">
         {product.material}
       </span>
       {product.badge ? (
-        <span className="rounded-full bg-accent px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.06em] text-accent-foreground shadow-sm">
+        <Badge
+          tone="accent"
+          className="px-2.5 text-[10.5px] font-semibold uppercase tracking-[0.06em]"
+        >
           {product.badge}
-        </span>
+        </Badge>
       ) : null}
     </div>
   );
@@ -92,10 +92,10 @@ export function ProductCard({ product }: { product: Product }) {
     <div
       className={cn(
         "relative w-full overflow-hidden",
-        featured ? "h-full min-h-[280px]" : "h-[224px]",
+        featured ? "h-full min-h-[320px]" : "h-[268px]",
         product.darkShot
           ? "bg-gradient-to-b from-[#161616] to-[#0a0a0a]"
-          : "bg-gradient-to-b from-black/[0.04] to-black/[0.01]"
+          : "bg-gradient-to-b from-black/[0.03] to-transparent"
       )}
     >
       <ImageChips product={product} />
@@ -109,7 +109,7 @@ export function ProductCard({ product }: { product: Product }) {
             : "(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw"
         }
         className={cn(
-          "object-contain p-5 transition-transform duration-700 ease-out group-hover:scale-[1.06]",
+          "object-contain p-6 transition-transform duration-700 ease-out group-hover:scale-[1.04]",
           product.darkShot && "p-0"
         )}
       />
@@ -121,15 +121,15 @@ export function ProductCard({ product }: { product: Product }) {
       <Tilt max={4} className="h-full">
         <Card
           tone="glass-panel"
-          className="group flex h-full flex-col overflow-hidden rounded-3xl transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_30px_70px_rgba(0,0,0,0.12)] lg:grid lg:grid-cols-2"
+          className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border-black/[0.04] transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(0,0,0,0.1)] lg:grid lg:grid-cols-2"
         >
           {media}
-          <div className="flex flex-1 flex-col p-7 sm:p-8">
-            <h3 className="font-display text-2xl font-bold tracking-tight">
+          <div className="flex flex-1 flex-col p-8 sm:p-10">
+            <h3 className="font-display text-[28px] font-semibold leading-tight tracking-tight">
               {product.name}
             </h3>
-            <p className="mt-2 text-sm text-panel-muted">{product.tagline}</p>
-            <div className="my-5 h-px w-full bg-black/[0.07]" />
+            <p className="mt-2.5 text-sm text-panel-muted">{product.tagline}</p>
+            <div className="my-6 h-px w-full bg-black/[0.06]" />
             <ul className="flex flex-col gap-3">
               {product.features.map((f) => (
                 <FeatureItem key={f} feature={f} />
@@ -145,13 +145,15 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Card
       tone="glass-panel"
-      className="group flex h-full flex-col overflow-hidden rounded-3xl transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_24px_56px_rgba(0,0,0,0.1)]"
+      className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border-black/[0.04] transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_24px_56px_rgba(0,0,0,0.08)]"
     >
       {media}
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-bold tracking-tight">{product.name}</h3>
+      <div className="flex flex-1 flex-col p-7">
+        <h3 className="font-display text-xl font-semibold tracking-tight">
+          {product.name}
+        </h3>
         <p className="mt-1.5 text-[13px] text-panel-muted">{product.tagline}</p>
-        <div className="my-4 h-px w-full bg-black/[0.06]" />
+        <div className="my-5 h-px w-full bg-black/[0.05]" />
         <ul className="flex flex-col gap-2.5">
           {product.features.map((f) => (
             <FeatureItem key={f} feature={f} />

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ProductsHero } from "@/app/components/sections/products/ProductsHero";
 import { ProductGrid } from "@/app/components/sections/products/ProductGrid";
 
@@ -7,7 +8,9 @@ export default function ProductsPage() {
   return (
     <>
       <ProductsHero />
-      <ProductGrid />
+      <Suspense fallback={null}>
+        <ProductGrid />
+      </Suspense>
     </>
   );
 }

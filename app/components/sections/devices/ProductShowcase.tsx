@@ -139,7 +139,8 @@ export function ProductShowcase() {
 
                     <Button
                       href={`/checkout?product=${item.id}`}
-                      className="mt-8 bg-black px-6 text-white hover:bg-black/90"
+                      variant="primary"
+                      className="mt-8"
                     >
                       Order Now &mdash; {item.price}
                     </Button>

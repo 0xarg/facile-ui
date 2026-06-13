@@ -101,7 +101,7 @@ export function FeaturedDevices() {
                   </p>
                   <Button
                     href={`/checkout?product=${item.id}`}
-                    variant="gradient"
+                    variant="primary"
                     className="mt-7 w-full sm:w-auto"
                   >
                     Order now
