@@ -56,7 +56,18 @@ function Stars() {
 export function Testimonials() {
   return (
     <section className="bg-background py-24 text-foreground sm:py-28">
-      <Container size="lg">
+      <Container size="full">
+        <Reveal className="mb-14 max-w-2xl">
+          <h2 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+            Loved by the people who{" "}
+            <span className="text-gradient">hand it over</span>.
+          </h2>
+          <p className="mt-4 text-lg text-foreground/60">
+            Founders, creatives, and salespeople who replaced the paper card for
+            good.
+          </p>
+        </Reveal>
+
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:gap-20">
           {/* stats column */}
           <Reveal>

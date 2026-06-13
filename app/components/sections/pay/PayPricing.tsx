@@ -24,8 +24,8 @@ const plans: Plan[] = [
     price: "Free",
     features: [
       "Tap-to-pay enabled",
-      "1 identity profile",
-      "Standard card design",
+      "Tap-to-share profile",
+      "Standard metal card",
       "Payment dashboard",
     ],
     cta: "Get Started",
@@ -149,10 +149,11 @@ export function PayPricing() {
               Pricing
             </p>
             <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-[60px] md:leading-[1.02]">
-              One card. Unlimited potential.
+              Own the card. Choose the plan.
             </h2>
             <p className="mt-3 text-base text-[#555]">
-              No subscriptions required. Pay once, tap forever.
+              Tap-to-pay and profile sharing are free with every card. Upgrade
+              only if you want more.
             </p>
           </div>
         </Reveal>

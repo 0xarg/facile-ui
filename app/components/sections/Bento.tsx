@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { Container } from "@/app/components/ui/Container";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
@@ -17,7 +18,7 @@ function BentoCard({
 }) {
   return (
     <StaggerItem className={cn("h-full", className)}>
-      <div className="flex h-full flex-col gap-2.5 overflow-hidden rounded-[20px] border border-panel-border bg-white p-7 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
+      <div className="group/card flex h-full flex-col gap-2.5 overflow-hidden rounded-[20px] border border-panel-border bg-white p-7 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
         <p className="text-[10px] font-semibold uppercase leading-none tracking-[0.15em] text-[#aaa]">
           {tag}
         </p>
@@ -27,43 +28,19 @@ function BentoCard({
   );
 }
 
-/* ── card product mockup (built from CSS, matches the Figma render) ──── */
+/* ── card product photo — real render on an iPhone ───────────────────── */
 
 function CardVisual() {
   return (
-    <div className="flex flex-1 items-end justify-center pt-4">
-      <div className="-rotate-6">
-        <div className="relative aspect-[1.6/1] w-[240px] overflow-hidden rounded-2xl bg-gradient-to-br from-[#262626] to-[#0a0a0a] shadow-[0_32px_64px_rgba(0,0,0,0.45)]">
-          {/* contactless / nfc rows */}
-          <div className="absolute left-[6%] top-[16%] flex flex-col gap-1.5">
-            {[0, 1, 2].map((row) => (
-              <div key={row} className="flex gap-1">
-                {[0, 1, 2].map((dot) => (
-                  <span
-                    key={dot}
-                    className="size-[5px] rounded-full bg-white/30"
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-          {/* mini QR */}
-          <div className="absolute right-[5%] top-[12%] grid size-7 grid-cols-3 gap-[2px] rounded-[3px] bg-white/10 p-[3px]">
-            {[1, 0, 1, 0, 1, 1, 1, 0, 1].map((on, i) => (
-              <span
-                key={i}
-                className={cn(
-                  "rounded-[1px]",
-                  on ? "bg-white/70" : "bg-transparent"
-                )}
-              />
-            ))}
-          </div>
-          <span className="absolute bottom-[10%] left-[7%] text-[9px] font-bold text-white/55">
-            facile
-          </span>
-        </div>
-      </div>
+    <div className="relative mt-2 flex flex-1 items-end justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-[#f6f5f1] to-[#eceae3]">
+      <Image
+        src="/devices/phone-cards.png"
+        alt="Facile card attached to the back of an iPhone, ready to tap"
+        width={760}
+        height={520}
+        sizes="(min-width: 1024px) 540px, 90vw"
+        className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover/card:scale-[1.03]"
+      />
     </div>
   );
 }
@@ -163,16 +140,19 @@ const ANALYTICS_BARS = [
 export function Bento() {
   return (
     <section className="bg-panel py-24 text-panel-foreground sm:py-32">
-      <Container size="lg">
+      <Container size="full">
         {/* header */}
         <Reveal>
-          <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-xl">
               <h2 className="font-display text-4xl font-extrabold tracking-tight text-panel-foreground sm:text-5xl md:text-[60px] md:leading-[1.05]">
-                The card. The profile.
+                The card.
+                <br className="hidden sm:block" /> The{" "}
+                <span className="text-gradient">profile</span>.
               </h2>
-              <p className="mt-3 text-lg text-panel-muted sm:text-xl">
-                Two products. One system.
+              <p className="mt-4 text-lg text-panel-muted sm:text-xl">
+                Two products that act like one. The card you hand over, the
+                profile you control.
               </p>
             </div>
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#aaa]">
@@ -186,24 +166,16 @@ export function Bento() {
           {/* THE CARD — big card, spans 2 cols + 2 rows */}
           <BentoCard
             tag="The card"
-            className="sm:col-span-2 lg:col-span-2 lg:row-span-2"
+            className="sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:min-h-[460px]"
           >
             <h3 className="text-[26px] font-bold leading-tight tracking-tight text-[#0a0a0a]">
               Tap. They have everything.
             </h3>
-            <p className="max-w-[320px] text-sm leading-relaxed text-[#777]">
+            <p className="max-w-[340px] text-sm leading-relaxed text-[#777]">
               Embedded NFC chip. Laser-engraved QR fallback. Works on every
               iPhone and Android — opens in any browser, zero friction.
             </p>
             <CardVisual />
-            <div className="mt-2 flex items-center justify-between pt-2">
-              <div className="flex items-center gap-1.5">
-                <span className="size-3.5 rounded-[7px] border border-black/10 bg-[#1a1a1a]" />
-                <span className="size-3.5 rounded-[7px] border border-black/10 bg-[#9ca3af]" />
-                <span className="size-3.5 rounded-[7px] border border-black/10 bg-[#f3f4f6]" />
-              </div>
-              <span className="text-[13px] text-[#888]">From $29 →</span>
-            </div>
           </BentoCard>
 
           {/* ZERO FRICTION */}

@@ -18,15 +18,17 @@ export function CTA() {
       <Container size="md" className="relative">
         <Reveal className="flex flex-col items-center text-center">
           <h2 className="max-w-2xl text-balance font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-[44px] md:leading-[1.08]">
-            Ready to Transform Your Networking?
+            Hand someone your <span className="text-gradient">whole</span> world
+            in one tap
           </h2>
           <p className="mt-5 max-w-lg text-pretty text-lg text-foreground/65">
-            Join thousands of professionals who&apos;ve upgraded to Facile.
+            Pick a finish, engrave your name, and start connecting this week.
+            One card replaces every paper one you&apos;ll ever print.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
-            <Button href="/checkout?product=metal" size="lg" className="group">
-              Order Your Card
+            <Button href="/checkout?product=metal" variant="gradient" size="lg" className="group">
+              Shop the lineup
               <svg
                 width="18"
                 height="18"

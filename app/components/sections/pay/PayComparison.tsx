@@ -6,11 +6,11 @@ const columns = ["Facile Pay", "Traditional Card", "Phone Pay"] as const;
 // per row: [Facile Pay, Traditional Card, Phone Pay]
 const rows: { feature: string; values: boolean[] }[] = [
   { feature: "Tap to Pay", values: [true, false, true] },
-  { feature: "Identity Verification", values: [true, false, false] },
+  { feature: "Shares Your Profile", values: [true, false, false] },
   { feature: "No App Required", values: [true, false, true] },
-  { feature: "Works Offline", values: [true, false, false] },
+  { feature: "Premium Metal Build", values: [true, false, false] },
   { feature: "NFC Encrypted", values: [true, false, true] },
-  { feature: "Multiple Cards in One", values: [true, false, true] },
+  { feature: "Works Without a Phone", values: [true, true, false] },
 ];
 
 function Check() {
@@ -42,10 +42,10 @@ export function PayComparison() {
             Compare
           </p>
           <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-panel-foreground sm:text-5xl md:text-[60px] md:leading-[1.02]">
-            Better than a wallet.
+            It does more than your bank card.
           </h2>
           <p className="mt-3 text-base text-[#777]">
-            Facile Pay vs. what you&apos;re already using.
+            Facile Pay vs. the card and the phone in your pocket right now.
           </p>
         </Reveal>
 

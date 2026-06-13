@@ -43,11 +43,12 @@ export function PayFinalCTA() {
         </motion.div>
 
         <h2 className="font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl md:text-[72px]">
-          Start tapping today.
+          Carry one card.
         </h2>
-        <p className="mt-5 max-w-[640px] text-base text-[#888]">
-          Join thousands of professionals who&apos;ve ditched the wallet. Order
-          yours now — free profile included.
+        <p className="mt-5 max-w-[600px] text-base text-[#888]">
+          Pay anywhere, share everywhere. Join thousands of professionals
+          who&apos;ve retired the wallet and the business card both — profile
+          included, free.
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">

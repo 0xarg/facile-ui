@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Media } from "@/app/components/ui/Media";
 import { Container } from "@/app/components/ui/Container";
 import { SectionHeading } from "@/app/components/ui/SectionHeading";
 import { Reveal } from "@/app/components/motion/Reveal";
@@ -12,25 +12,25 @@ type Step = {
 
 const STEPS: Step[] = [
   {
-    title: "Order Your Card",
+    title: "Order & engrave",
     description:
-      "Choose your design and add your profile information through our simple setup process.",
-    image: { src: "/devices/how-order.png", alt: "Facile NFC card on a phone" },
+      "Pick your finish, drop in your name, and we laser-engrave it. Your card ships ready to tap.",
+    image: { src: "/devices/how-order.png", alt: "Facile NFC card resting on a phone" },
   },
   {
-    title: "Customize Profile",
+    title: "Build your profile",
     description:
-      "Add your contact details, social media links, portfolio, and any information you want to share.",
+      "Add links, contact details, socials, and your portfolio from one dashboard — change it anytime.",
     image: {
       src: "/devices/how-customize.png",
-      alt: "Facile card standing upright",
+      alt: "Facile card standing upright on a surface",
     },
   },
   {
-    title: "Tap & Share",
+    title: "Tap & connect",
     description:
-      "Simply tap your card on any smartphone to instantly share your digital profile.",
-    image: { src: "/devices/how-tap.png", alt: "Facile NFC smart band" },
+      "Hold the card to any phone. Your full profile opens in their browser — no app, no friction.",
+    image: { src: "/devices/how-tap.png", alt: "Facile NFC smart band being tapped" },
   },
 ];
 
@@ -45,24 +45,31 @@ export function HowItWorks() {
           <SectionHeading
             align="center"
             className="font-display"
-            title="How It Works"
-            description="Get started in three simple steps"
+            title={
+              <>
+                Set up once. <span className="text-gradient">Tap</span> forever.
+              </>
+            }
+            description="Three steps from unboxing to your first connection."
           />
         </Reveal>
 
         <Stagger className="mt-14 grid gap-8 sm:mt-16 md:grid-cols-3">
-          {STEPS.map((step) => (
+          {STEPS.map((step, i) => (
             <StaggerItem key={step.title} className="flex flex-col">
-              <div className="aspect-square overflow-hidden rounded-3xl border border-border bg-white">
-                <Image
+              <div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-[#0c0c0e]">
+                <Media
                   src={step.image.src}
                   alt={step.image.alt}
-                  width={400}
-                  height={400}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover"
                 />
+                <span className="absolute left-5 top-5 flex size-9 items-center justify-center rounded-full border border-white/15 bg-black/40 font-display text-sm font-semibold text-white backdrop-blur">
+                  {i + 1}
+                </span>
               </div>
-              <h3 className="mt-6 text-xl font-bold tracking-tight">
+              <h3 className="mt-6 font-display text-xl font-semibold tracking-tight">
                 {step.title}
               </h3>
               <p className="mt-2 text-base leading-relaxed text-foreground/60">

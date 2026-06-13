@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, AnchorHTMLAttributes, ReactNode } from "reac
 import Link from "next/link";
 import { cn } from "@/app/lib/cn";
 
-type Variant = "primary" | "secondary" | "outline" | "ghost";
+type Variant = "primary" | "secondary" | "outline" | "ghost" | "gradient";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -16,6 +16,8 @@ const variants: Record<Variant, string> = {
   outline:
     "border border-border-strong text-foreground hover:bg-foreground/5 active:scale-[0.98]",
   ghost: "text-foreground hover:bg-foreground/5",
+  // Premium dark pill with a bright-top gradient hairline border + hover glow.
+  gradient: "btn-gradient-border hover:-translate-y-0.5 active:scale-[0.98]",
 };
 
 const sizes: Record<Size, string> = {

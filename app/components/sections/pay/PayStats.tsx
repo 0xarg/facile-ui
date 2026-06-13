@@ -26,7 +26,7 @@ const testimonials: { quote: string; name: string; role: string }[] = [
   },
   {
     quote:
-      "The fact that there's no app, no phone, no PIN — it's just my card — is genuinely revolutionary.",
+      "One tap pays. The next tap hands them my whole portfolio. I retired my wallet and my business cards in the same week.",
     name: "Marcus T.",
     role: "Creative Director",
   },
@@ -36,6 +36,17 @@ export function PayStats() {
   return (
     <section className="bg-[#080808] py-24 sm:py-28">
       <Container size="lg">
+        <Reveal>
+          <div className="mb-14 max-w-2xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#444]">
+              The receipts
+            </p>
+            <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-[56px] md:leading-[1.04]">
+              Loved by people who hate friction.
+            </h2>
+          </div>
+        </Reveal>
+
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-20">
           {/* stats column */}
           <Reveal>

@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/app/components/ui/Button";
+import { Tilt } from "@/app/components/motion/Float";
 import { PayCardVisual } from "./PayCardVisual";
 
 const GRADIENT =
@@ -57,13 +58,13 @@ export function PayHero() {
           transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl md:text-[88px] md:leading-[0.98]"
         >
-          Pay with a tap.
+          One card.
           <br />
           <span
             className="bg-clip-text text-transparent"
             style={{ backgroundImage: GRADIENT }}
           >
-            No wallet needed.
+            Pay and be known.
           </span>
         </motion.h1>
 
@@ -71,10 +72,10 @@ export function PayHero() {
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={reduce ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-7 max-w-[540px] text-pretty text-lg leading-relaxed text-[#888]"
+          className="mt-7 max-w-[560px] text-pretty text-lg leading-relaxed text-[#888]"
         >
-          Facile Pay turns your NFC card into a universal tap-to-pay identity.
-          Works everywhere contactless is accepted — no phone, no app, no PIN.
+          Facile Pay is one brushed-metal card that taps to pay and taps to
+          share your profile. Contactless everywhere — no phone, no app, no PIN.
         </motion.p>
 
         <motion.div
@@ -124,9 +125,9 @@ export function PayHero() {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="relative"
           >
-            <div className="rotate-[8deg]" style={{ transformOrigin: "center" }}>
-              <PayCardVisual width={460} className="max-w-full" />
-            </div>
+            <Tilt max={8}>
+              <PayCardVisual width={500} priority className="max-w-full" />
+            </Tilt>
           </motion.div>
 
           {/* "Payment verified" chip — bottom-left */}
@@ -137,7 +138,7 @@ export function PayHero() {
             <div className="flex items-center gap-2 rounded-full bg-[#161616] px-4 py-2.5">
               <span className="size-[7px] rounded-[3.5px] bg-[#6ee7b7] shadow-[0_0_6px_rgba(110,231,183,0.8)]" />
               <span className="font-mono text-xs text-white">
-                Payment verified
+                Paid &amp; shared
               </span>
               <span className="text-[10px] font-semibold tracking-wide text-[#6ee7b7]">
                 0.3s

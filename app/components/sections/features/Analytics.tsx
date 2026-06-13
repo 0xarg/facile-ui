@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Container } from "@/app/components/ui/Container";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
+import { Tilt } from "@/app/components/motion/Float";
 
 function CursorIcon() {
   return (
@@ -30,7 +31,7 @@ function GlobeIcon() {
 
 function InfoCard({ icon, title, body }: { icon: ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-black/[0.06] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+    <div className="h-full rounded-2xl border border-black/[0.06] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.18)]">
       <span className="flex size-9 items-center justify-center rounded-xl bg-black/[0.05]">
         {icon}
       </span>
@@ -50,7 +51,10 @@ function DashboardMock() {
     ["Canada", "10%", 10],
   ] as const;
   return (
-    <div className="mx-auto w-full max-w-md rounded-[24px] bg-[#0d0d0d] p-7">
+    <Tilt
+      max={5}
+      className="mx-auto w-full max-w-md rounded-[24px] bg-[#0d0d0d] p-7 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.04]"
+    >
       <div className="grid grid-cols-3 gap-4 border-b border-white/[0.06] pb-6">
         {[
           ["384", "TOTAL TAPS"],
@@ -100,7 +104,7 @@ function DashboardMock() {
           </div>
         </div>
       </div>
-    </div>
+    </Tilt>
   );
 }
 
@@ -113,11 +117,11 @@ export function Analytics() {
             Analytics
           </p>
           <h2 className="font-display mx-auto mt-4 max-w-2xl text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-[56px]">
-            Know who&apos;s connecting.
+            See every tap land.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-[#777]">
-            A clean, real-time dashboard that shows you exactly how your card is
-            performing.
+            A real-time dashboard that turns each tap into insight — who
+            connected, what they clicked, and where in the world they are.
           </p>
         </Reveal>
 

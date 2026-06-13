@@ -21,7 +21,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 w-full max-w-[1120px] items-center justify-between px-5 sm:px-8">
         <Link href="/" aria-label="Facile home">
-          <Wordmark />
+          <Wordmark surface="auto" priority />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

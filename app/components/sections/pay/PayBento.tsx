@@ -92,10 +92,17 @@ export function PayBento() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-[60px] md:leading-[1.05]">
-                One card. Every payment.
+                Pays the bill. Makes the
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: GRADIENT }}
+                >
+                  {" "}
+                  introduction.
+                </span>
               </h2>
               <p className="mt-2 text-lg text-[#555] sm:text-xl">
-                Faster than cash. Safer than a wallet.
+                Faster than cash. Sharper than a business card.
               </p>
             </div>
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#444]">
@@ -112,17 +119,15 @@ export function PayBento() {
             className="sm:col-span-2 lg:col-span-2 lg:row-span-2"
           >
             <h3 className="text-[26px] font-bold leading-tight tracking-tight text-white">
-              Tap. Verified. Done.
+              Tap. Paid. Shared.
             </h3>
-            <p className="max-w-[320px] text-sm leading-relaxed text-[#888]">
-              Hold your Facile Pay card near any contactless reader. Encrypted
-              NFC signal fires. Payment confirms in 0.3 seconds. No PIN, no
-              unlock, no friction.
+            <p className="max-w-[340px] text-sm leading-relaxed text-[#888]">
+              Brushed metal, milled to 0.8mm. Hold it near any reader to pay —
+              or near any phone to drop your full profile. One card, both jobs,
+              in 0.3 seconds.
             </p>
-            <div className="flex flex-1 items-end justify-center pt-4">
-              <div className="-rotate-6">
-                <PayCardVisual width={240} />
-              </div>
+            <div className="flex flex-1 items-center justify-center pt-2">
+              <PayCardVisual width={300} glow={false} />
             </div>
             <div className="mt-2 flex items-center justify-between pt-2">
               <div className="flex items-center gap-1.5">
@@ -224,11 +229,11 @@ export function PayBento() {
           <BentoCard tag="Identity">
             <p className="pt-1 text-[28px] leading-none">🪪</p>
             <h3 className="mt-2 text-lg font-bold tracking-tight text-white">
-              You are your card.
+              Pay and share, as one.
             </h3>
             <p className="text-xs leading-relaxed text-[#888]">
-              Every Facile Pay card is cryptographically tied to one verified
-              identity.
+              The same tap that settles the bill can hand over your full Facile
+              profile — links, socials, contact, all of it.
             </p>
           </BentoCard>
 

@@ -78,8 +78,13 @@ export function Testimonials() {
           <SectionHeading
             align="center"
             className="font-display"
-            title="Loved By Thousands"
-            description="Join professionals who've transformed their networking"
+            title={
+              <>
+                The last business card they&apos;ll{" "}
+                <span className="text-gradient">remember</span>
+              </>
+            }
+            description="Founders, creatives, and sales teams who made the switch."
           />
         </Reveal>
 

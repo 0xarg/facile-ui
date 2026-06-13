@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Media } from "@/app/components/ui/Media";
 import { Container } from "@/app/components/ui/Container";
 import { SectionHeading } from "@/app/components/ui/SectionHeading";
 import { Button } from "@/app/components/ui/Button";
@@ -17,38 +17,38 @@ type Showcase = {
 const SHOWCASES: Showcase[] = [
   {
     id: "band",
-    name: "Premium Bands",
+    name: "Premium Band",
     description:
-      "Our flagship design featuring a matte black finish with subtle branding. Perfect for professionals who want to make a statement.",
-    price: "$49",
+      "Soft-touch silicone that lives on your wrist, not in a wallet. Made for conferences, festivals, and the handshake-heavy days.",
+    price: "$39",
     features: [
-      "Premium matte finish",
-      "Embedded NFC chip",
-      "Custom engraving available",
-      "Lifetime warranty",
-      "Free profile updates",
+      "Sweat- and water-resistant",
+      "Embedded NFC + QR fallback",
+      "Tap from either side",
+      "Adjustable, all-day comfort",
+      "Lifetime profile updates",
     ],
     image: {
       src: "/devices/premium-bands.png",
-      alt: "Matte black Facile NFC smart band",
+      alt: "Matte black Facile NFC smart band worn on a wrist",
     },
   },
   {
     id: "phone",
-    name: "Phone Cards",
+    name: "Phone Card",
     description:
-      "Clean and modern with a pure white finish. Stand out with minimalist elegance that speaks volumes.",
-    price: "$39",
+      "A featherweight card that sticks to the back of your phone — so the thing you're already holding becomes the thing you share.",
+    price: "$29",
     features: [
-      "Glossy white finish",
-      "Advanced NFC technology",
-      "Water-resistant coating",
-      "2-year warranty",
-      "Unlimited profile edits",
+      "Re-stickable, residue-free",
+      "Profiles in under 2 minutes",
+      "Slim enough for any case",
+      "Matte, fingerprint-proof finish",
+      "Unlimited link edits",
     ],
     image: {
       src: "/devices/phone-cards.png",
-      alt: "White Facile NFC phone card on the back of a smartphone",
+      alt: "White Facile NFC phone card stuck to the back of a smartphone",
     },
   },
 ];
@@ -78,8 +78,8 @@ export function ProductShowcase() {
           <SectionHeading
             align="center"
             className="font-display"
-            title="Our Latest"
-            description="Sleek, minimalist designs that make a lasting impression"
+            title="Everyday carry, upgraded"
+            description="Different shapes for different days — every one taps to the same profile you control."
           />
         </Reveal>
 
@@ -92,16 +92,16 @@ export function ProductShowcase() {
                   {/* Image */}
                   <div
                     className={cn(
-                      "overflow-hidden rounded-3xl border border-panel-border bg-white",
+                      "group relative aspect-[4/3] overflow-hidden rounded-3xl border border-panel-border bg-white",
                       imageFirst ? "lg:order-1" : "lg:order-2"
                     )}
                   >
-                    <Image
+                    <Media
                       src={item.image.src}
                       alt={item.image.alt}
-                      width={584}
-                      height={438}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     />
                   </div>
 
@@ -112,9 +112,14 @@ export function ProductShowcase() {
                       imageFirst ? "lg:order-2" : "lg:order-1"
                     )}
                   >
-                    <h3 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-[36px]">
-                      {item.name}
-                    </h3>
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl md:text-[36px]">
+                        {item.name}
+                      </h3>
+                      <span className="rounded-full bg-panel-foreground/[0.06] px-3 py-1 text-sm font-medium text-panel-foreground/70">
+                        from {item.price}
+                      </span>
+                    </div>
                     <p className="mt-4 max-w-md text-lg leading-relaxed text-panel-muted">
                       {item.description}
                     </p>

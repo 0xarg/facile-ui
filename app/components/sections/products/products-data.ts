@@ -9,6 +9,17 @@ export type Product = {
   features: string[];
   category: ProductCategory;
   image: { src: string; alt: string };
+  /** Short material/finish label shown as a chip on the card. */
+  material: string;
+  /** Lifts one product into the featured hero tile of the grid. */
+  featured?: boolean;
+  /** A short marketing badge ("Best seller", "New"). Optional. */
+  badge?: string;
+  /**
+   * Some renders are shot on pure black; on the light panel they read best
+   * inside a matching dark inset rather than the default light frame.
+   */
+  darkShot?: boolean;
 };
 
 export type CategoryTab = {
@@ -30,98 +41,148 @@ export const categoryInfo: Record<
   { title: string; description: string }
 > = {
   all: {
-    title: "All Products",
-    description: "The full Facile lineup — cards, accessories, and bundles.",
+    title: "The full lineup",
+    description:
+      "Every card, band, and bundle Facile makes — tap-ready out of the box.",
   },
   nfc: {
-    title: "NFC Cards",
-    description: "Tap-to-share cards in matte PVC and recycled finishes.",
+    title: "NFC cards",
+    description:
+      "Matte and recycled finishes that share your whole profile in one tap.",
   },
   metal: {
-    title: "Metal Cards",
-    description: "Premium engraved metal for a lasting first impression.",
+    title: "Metal cards",
+    description:
+      "Brushed and blacked-out metal, laser-engraved to last a career.",
   },
   bands: {
-    title: "Smart Bands",
-    description: "Wearable NFC for events, gyms, and on-the-go networking.",
+    title: "Smart bands",
+    description:
+      "Wear your profile. Built for conferences, gyms, and the show floor.",
   },
   bundles: {
     title: "Bundles",
-    description: "Mix finishes and save — built for teams and gifting.",
+    description: "Mix finishes, save more — made for teams, gifts, and growth.",
   },
 };
 
 export const products: Product[] = [
   {
+    id: "metal",
+    name: "Metal Card",
+    tagline: "Brushed metal that lands with weight.",
+    price: "From $49",
+    category: "metal",
+    material: "Brushed aluminum",
+    featured: true,
+    badge: "Best seller",
+    features: [
+      "Aerospace-grade brushed aluminum",
+      "Laser-engraved QR, never fades",
+      "Unlimited profile edits, forever",
+    ],
+    image: { src: "/images/card.png", alt: "Brushed metal Facile NFC card, front and back" },
+  },
+  {
     id: "standard",
     name: "Standard Card",
-    tagline: "Matte PVC. NFC and QR.",
+    tagline: "Matte PVC. One tap. Done.",
     price: "From $29",
     category: "nfc",
-    features: ["Embedded NFC chip", "Laser QR backup", "Free digital profile"],
-    image: { src: "/products/standard-card.png", alt: "Standard matte PVC NFC card" },
+    material: "Matte PVC",
+    features: [
+      "Embedded NFC — works on any phone",
+      "Laser QR backup on the reverse",
+      "Free digital profile included",
+    ],
+    image: { src: "/images/card-2.png", alt: "Matte PVC Facile NFC card, front and back" },
   },
   {
     id: "eco",
     name: "Eco Card",
-    tagline: "Recycled stock. Same tap.",
+    tagline: "Recycled stock, identical tap.",
     price: "From $34",
     category: "nfc",
-    features: ["100% recycled PVC", "Embedded NFC chip", "Soft-touch finish"],
-    image: { src: "/products/standard-card.png", alt: "Recycled eco NFC card" },
-  },
-  {
-    id: "metal",
-    name: "Metal Card",
-    tagline: "Brushed metal. Heavy. Lasting.",
-    price: "From $49",
-    category: "metal",
-    features: ["Brushed aluminum finish", "Laser-engraved QR", "Unlimited profile pages"],
-    image: { src: "/products/metal-card.png", alt: "Brushed metal NFC card" },
+    material: "100% recycled",
+    features: [
+      "100% recycled, soft-touch PVC",
+      "Same embedded NFC chip",
+      "Carbon-neutral shipping",
+    ],
+    image: { src: "/images/business-plate.png", alt: "Recycled Facile NFC card on a desk stand" },
   },
   {
     id: "black-metal",
     name: "Black Metal Card",
-    tagline: "Matte black. Stealth edge.",
+    tagline: "Matte black. Quietly serious.",
     price: "From $59",
     category: "metal",
-    features: ["PVD black coating", "Laser-engraved QR", "Weighted & durable"],
-    image: { src: "/products/metal-card.png", alt: "Matte black metal NFC card" },
+    material: "PVD black",
+    badge: "New",
+    features: [
+      "PVD black coating, scratch-resistant",
+      "Laser-engraved QR fallback",
+      "Weighted, with a satin edge",
+    ],
+    image: { src: "/images/phone-card.png", alt: "Matte black Facile metal card on the back of a phone" },
+    darkShot: true,
   },
   {
     id: "band",
     name: "Smart Band",
-    tagline: "Wearable NFC for events.",
+    tagline: "Your profile, on your wrist.",
     price: "From $39",
     category: "bands",
-    features: ["Silicone comfort fit", "Tap-to-share NFC", "Laser-engraved QR code"],
-    image: { src: "/products/band.png", alt: "Black silicone NFC smart band" },
+    material: "Soft silicone",
+    features: [
+      "All-day silicone comfort fit",
+      "Tap-to-share NFC built in",
+      "Laser-engraved QR code",
+    ],
+    image: { src: "/products/band.png", alt: "Black silicone Facile NFC smart band" },
+    darkShot: true,
   },
   {
     id: "premium-band",
     name: "Premium Band",
-    tagline: "Brushed metal. Heavy. Lasting.",
+    tagline: "Brushed steel, made to last.",
     price: "From $79",
     category: "bands",
-    features: ["Brushed steel finish", "Weighted & durable", "Laser-engraved QR code"],
-    image: { src: "/products/band.png", alt: "Brushed metal NFC smart band" },
+    material: "Brushed steel",
+    features: [
+      "Brushed-steel link bracelet",
+      "Weighted and weatherproof",
+      "Laser-engraved QR code",
+    ],
+    image: { src: "/products/band.png", alt: "Brushed steel Facile NFC smart band" },
+    darkShot: true,
   },
   {
     id: "premium-bundle",
     name: "Premium Bundle",
-    tagline: "Two cards. Every finish.",
+    tagline: "Two cards, every finish.",
     price: "From $79",
     category: "bundles",
-    features: ["Two cards included", "All finishes available", "Priority support"],
-    image: { src: "/products/premium-bundle.png", alt: "Premium bundle of two metal cards" },
+    material: "Mix & match",
+    features: [
+      "Two cards, any finish you like",
+      "Matching engraved QR codes",
+      "Priority support included",
+    ],
+    image: { src: "/products/premium-bundle.png", alt: "Premium bundle of two Facile metal cards" },
   },
   {
     id: "team-pack",
     name: "Team Pack",
-    tagline: "Five cards. One profile hub.",
+    tagline: "Five cards. One shared hub.",
     price: "From $129",
     category: "bundles",
-    features: ["Five cards included", "Shared team dashboard", "Bulk QR engraving"],
-    image: { src: "/products/premium-bundle.png", alt: "Team pack of Facile cards" },
+    material: "For teams",
+    features: [
+      "Five cards, branded together",
+      "Shared team dashboard",
+      "Bulk QR engraving",
+    ],
+    image: { src: "/products/premium-bundle.png", alt: "Team pack of five Facile cards" },
   },
 ];

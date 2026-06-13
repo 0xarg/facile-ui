@@ -12,9 +12,9 @@ type Plan = {
 };
 
 const PLANS: Plan[] = [
-  { id: "metal", name: "Personal Metal Card", price: "$39" },
-  { id: "business", name: "Classic Business Card", price: "$49", featured: true },
-  { id: "band", name: "Premium Bands", price: "$199" },
+  { id: "phone", name: "Standard Card", price: "$29" },
+  { id: "metal", name: "Metal Card", price: "$49", featured: true },
+  { id: "premium", name: "Premium Bundle", price: "$79" },
 ];
 
 type Row = {
@@ -23,22 +23,15 @@ type Row = {
 };
 
 const ROWS: Row[] = [
-  { label: "Card Type", values: ["Single Card", "Single Card", "5-Card Pack"] },
-  { label: "NFC Chip Upgrade", values: [false, true, true] },
-  { label: "Custom Design", values: [false, true, true] },
-  { label: "Analytics", values: ["Basic", "Advanced", "Team Dashboard"] },
-  { label: "Profile Updates", values: ["Unlimited", "Unlimited", "Unlimited"] },
-  {
-    label: "Dimensions",
-    values: [
-      "85mm × 54mm × 0.8mm",
-      "85mm × 54mm × 0.8mm",
-      "85mm × 54mm × 0.8mm",
-    ],
-  },
-  { label: "Lifespan", values: ["Lifetime", "Lifetime", "Lifetime"] },
-  { label: "Branding", values: ["Standard", "Custom", "Full Custom"] },
-  { label: "Support", values: ["Email", "Priority", "Dedicated"] },
+  { label: "Material", values: ["Matte PVC", "Brushed steel", "Steel + band"] },
+  { label: "Embedded NFC", values: [true, true, true] },
+  { label: "Laser QR fallback", values: [true, true, true] },
+  { label: "Custom engraving", values: [false, true, true] },
+  { label: "Tap analytics", values: ["Basic", "Advanced", "Advanced"] },
+  { label: "Profile updates", values: ["Unlimited", "Unlimited", "Unlimited"] },
+  { label: "What's in the box", values: ["1 card", "1 card", "Card + band"] },
+  { label: "Warranty", values: ["1 year", "Lifetime", "Lifetime"] },
+  { label: "Support", values: ["Email", "Priority", "Priority"] },
 ];
 
 function CheckMark() {
@@ -96,8 +89,8 @@ export function ComparePlans() {
           <SectionHeading
             align="center"
             className="font-display"
-            title="Compare Plans"
-            description="Find the card that fits your networking needs"
+            title="Pick your tier"
+            description="Same instant tap on every one. The difference is finish, materials, and what comes in the box."
           />
         </Reveal>
 
@@ -109,12 +102,24 @@ export function ComparePlans() {
                 <tr>
                   <th className="w-[26%]" />
                   {PLANS.map((plan) => (
-                    <th key={plan.id} className="px-4 pb-8 align-bottom">
+                    <th
+                      key={plan.id}
+                      className={cn(
+                        "px-4 pb-8 align-bottom",
+                        plan.featured &&
+                          "rounded-t-2xl bg-panel-foreground/[0.04]"
+                      )}
+                    >
                       <div className="flex flex-col items-center">
+                        {plan.featured ? (
+                          <span className="mb-2 rounded-full bg-panel-foreground px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-white">
+                            Most popular
+                          </span>
+                        ) : null}
                         <span className="text-sm font-medium text-panel-foreground">
                           {plan.name}
                         </span>
-                        <span className="mt-1 text-3xl font-bold tracking-tight">
+                        <span className="mt-1 font-display text-3xl font-bold tracking-tight">
                           {plan.price}
                         </span>
                       </div>
@@ -132,7 +137,13 @@ export function ComparePlans() {
                       {row.label}
                     </td>
                     {row.values.map((value, j) => (
-                      <td key={j} className="px-4 py-4">
+                      <td
+                        key={j}
+                        className={cn(
+                          "px-4 py-4",
+                          PLANS[j]?.featured && "bg-panel-foreground/[0.04]"
+                        )}
+                      >
                         <Cell value={value} />
                       </td>
                     ))}
@@ -143,7 +154,14 @@ export function ComparePlans() {
                 <tr>
                   <td />
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="px-4 pt-8">
+                    <td
+                      key={plan.id}
+                      className={cn(
+                        "px-4 pb-6 pt-8",
+                        plan.featured &&
+                          "rounded-b-2xl bg-panel-foreground/[0.04]"
+                      )}
+                    >
                       <Button
                         href={`/checkout?product=${plan.id}`}
                         variant={plan.featured ? "primary" : "outline"}

@@ -6,7 +6,7 @@ import { Button } from "@/app/components/ui/Button";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { cn } from "@/app/lib/cn";
 import { useCart, type ShippingDetails } from "@/app/components/cart/CartContext";
-import { Field, SelectField } from "./Field";
+import { Field, SelectField, Spinner } from "./Field";
 import { SHIPPING_METHODS, formatPrice } from "./checkout-data";
 
 type Errors = Partial<Record<keyof ShippingDetails, string>>;
@@ -22,22 +22,25 @@ const REQUIRED: (keyof ShippingDetails)[] = [
   "zip",
 ];
 
+const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
 /**
  * Shipping information form (Figma 131:2402). Fields are bound to the cart
  * context so entries persist across Back/Continue; required fields are
- * validated before advancing to payment.
+ * validated before advancing to payment. Submit shows a brief pending state.
  */
 export function ShippingForm() {
   const router = useRouter();
   const { shipping, updateShipping, shippingMethod, setShippingMethod } = useCart();
   const [errors, setErrors] = useState<Errors>({});
+  const [submitting, setSubmitting] = useState(false);
 
   const validate = (): boolean => {
     const next: Errors = {};
     for (const key of REQUIRED) {
       if (!shipping[key]?.trim()) next[key] = "Required";
     }
-    if (shipping.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(shipping.email)) {
+    if (shipping.email && !isEmail(shipping.email)) {
       next.email = "Enter a valid email";
     }
     setErrors(next);
@@ -46,12 +49,32 @@ export function ShippingForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) router.push("/checkout/payment");
+    if (submitting) return;
+    if (!validate()) {
+      // Bring the first invalid field into view.
+      document
+        .querySelector('[aria-invalid="true"]')
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    setSubmitting(true);
+    // Brief perceptible transition before routing — feels considered, not instant.
+    setTimeout(() => router.push("/checkout/payment"), 450);
+  };
+
+  // A field is "valid" once it has a non-empty (and, for email, well-formed)
+  // value and no active error.
+  const isValid = (key: keyof ShippingDetails) => {
+    const v = shipping[key]?.trim();
+    if (!v || errors[key]) return false;
+    if (key === "email") return isEmail(shipping.email);
+    return true;
   };
 
   const bind = (key: keyof ShippingDetails) => ({
     value: shipping[key],
     error: errors[key],
+    valid: isValid(key),
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
       updateShipping({ [key]: e.target.value });
       if (errors[key]) setErrors((x) => ({ ...x, [key]: undefined }));
@@ -60,7 +83,15 @@ export function ShippingForm() {
 
   return (
     <Reveal className="mx-auto flex max-w-2xl flex-col gap-7">
-      <h1 className="text-2xl font-semibold sm:text-3xl">Shipping Information</h1>
+      <header className="flex flex-col gap-1.5">
+        <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          Where should we send it?
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Your card ships free and arrives ready to tap. We&apos;ll email tracking
+          the moment it leaves.
+        </p>
+      </header>
 
       <form className="flex flex-col gap-5" onSubmit={onSubmit} noValidate>
         <div className="grid gap-5 sm:grid-cols-2">
@@ -101,10 +132,10 @@ export function ShippingForm() {
               <label
                 key={m.id}
                 className={cn(
-                  "flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-colors",
+                  "flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-all duration-200",
                   selected
-                    ? "border-border-strong bg-foreground/5"
-                    : "border-border hover:bg-foreground/[0.03]"
+                    ? "border-[var(--accent)] bg-[var(--accent)]/[0.06] shadow-[0_0_0_3px_rgba(79,124,255,0.1)]"
+                    : "border-border hover:border-border-strong hover:bg-foreground/[0.03]"
                 )}
               >
                 <input
@@ -118,29 +149,42 @@ export function ShippingForm() {
                 <span
                   className={cn(
                     "flex h-4 w-4 items-center justify-center rounded-full border transition-colors",
-                    selected ? "border-foreground" : "border-border-strong"
+                    selected ? "border-[var(--accent)]" : "border-border-strong"
                   )}
                   aria-hidden="true"
                 >
-                  {selected ? <span className="h-2 w-2 rounded-full bg-foreground" /> : null}
+                  {selected ? <span className="h-2 w-2 rounded-full bg-[var(--accent)]" /> : null}
                 </span>
                 <span className="flex-1">
                   <span className="block text-sm font-medium">{m.title}</span>
                   <span className="block text-xs text-muted-foreground">{m.detail}</span>
                 </span>
-                <span className="text-sm font-medium">{formatPrice(m.price)}</span>
+                <span className="text-sm font-medium tabular-nums">{formatPrice(m.price)}</span>
               </label>
             );
           })}
         </fieldset>
 
-        <Button type="submit" size="lg" className="mt-2 w-full">
-          Continue to Payment
+        <Button
+          type="submit"
+          variant="gradient"
+          size="lg"
+          className="mt-2 w-full"
+          disabled={submitting}
+          aria-busy={submitting}
+        >
+          {submitting ? (
+            <>
+              <Spinner /> Saving your details…
+            </>
+          ) : (
+            "Continue to payment"
+          )}
         </Button>
       </form>
 
       <Button href="/checkout" variant="ghost" size="sm" className="mx-auto">
-        ‹ Back to Cart
+        ‹ Back to cart
       </Button>
     </Reveal>
   );

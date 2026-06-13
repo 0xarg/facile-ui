@@ -26,7 +26,7 @@ function FeatureCard({
 }) {
   return (
     <div
-      className={`flex flex-col rounded-3xl border border-white/[0.06] bg-white/[0.025] p-7 ${className ?? ""}`}
+      className={`group flex flex-col rounded-3xl border border-white/[0.06] bg-white/[0.025] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.12] hover:bg-white/[0.04] ${className ?? ""}`}
     >
       <div className="flex flex-col">
         <p className={eyebrow}>{label}</p>
@@ -144,11 +144,11 @@ export function LinkInBio() {
         <Reveal>
           <p className={eyebrow}>The Profile</p>
           <h2 className="font-display mt-4 max-w-2xl text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-[56px]">
-            Your link in bio. <span className="text-[#8a8a8a]">Evolved.</span>
+            Your link in bio, <span className="text-gradient">evolved.</span>
           </h2>
           <p className="mt-4 max-w-md text-base leading-relaxed text-[#9a9a9a]">
-            Build a beautiful profile in minutes. Share everything. Update
-            anytime.
+            Every link, social and detail on one page that actually looks like
+            you. Built in minutes, updated in seconds.
           </p>
         </Reveal>
 

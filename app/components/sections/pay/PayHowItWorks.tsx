@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Container } from "@/app/components/ui/Container";
 import { Button } from "@/app/components/ui/Button";
+import { Media } from "@/app/components/ui/Media";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
 
@@ -44,20 +45,20 @@ const steps: { icon: ReactNode; step: string; title: string; body: string }[] = 
   {
     icon: <TapIcon />,
     step: "STEP 01",
-    title: "Tap your card",
-    body: "Hold your Facile Pay card near any NFC-enabled terminal. No unlocking, no searching for an app — just a single tap.",
+    title: "Tap to pay",
+    body: "Hold the card to any contactless terminal. No unlocking, no app, no PIN — the encrypted NFC chip does the rest.",
   },
   {
     icon: <ShieldCheckIcon />,
     step: "STEP 02",
-    title: "Identity verified",
-    body: "Your encrypted NFC signal confirms your identity in milliseconds. Bank-grade security with zero effort on your end.",
+    title: "Tap to share",
+    body: "Hold the same card to a phone and your full Facile profile lands instantly — links, socials, contact, portfolio.",
   },
   {
     icon: <CheckCircleIcon />,
     step: "STEP 03",
-    title: "Payment complete",
-    body: "Transaction confirmed in 0.3 seconds. Receipt lands in your dashboard. You're done before you've even looked up.",
+    title: "See it all",
+    body: "Every payment and every profile tap streams to your dashboard in real time. One card, one source of truth.",
   },
 ];
 
@@ -72,10 +73,10 @@ export function PayHowItWorks() {
                 How it works
               </p>
               <h2 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-panel-foreground sm:text-5xl md:text-[60px] md:leading-[1.02]">
-                Three taps to everything.
+                One card. One tap.
               </h2>
               <p className="mt-3 text-base text-[#777]">
-                The simplest payment experience ever built.
+                The simplest way to pay and to be remembered.
               </p>
             </div>
             <Button
@@ -90,7 +91,35 @@ export function PayHowItWorks() {
           </div>
         </Reveal>
 
-        <Stagger className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <Reveal delay={0.08}>
+          <div className="mt-14 grid grid-cols-1 items-center gap-8 overflow-hidden rounded-[28px] border border-[#e8e8e4] bg-[#0a0a0a] md:grid-cols-2">
+            <div className="order-2 px-8 py-10 sm:px-12 md:order-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6ee7b7]">
+                The same card
+              </p>
+              <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                Lives in your pocket, works against any phone.
+              </h3>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-[#999]">
+                No second device, no battery, no setup. The brushed-metal chip
+                reads on the back of an iPhone or Android the same way it reads
+                at a checkout — your money and your identity in one piece of
+                metal.
+              </p>
+            </div>
+            <div className="relative order-1 aspect-square w-full md:order-2 md:aspect-auto md:h-full md:min-h-[360px]">
+              <Media
+                src="/images/phone-card.png"
+                alt="Facile Pay card held against the back of a phone, ready to tap"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </Reveal>
+
+        <Stagger className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
           {steps.map((s) => (
             <StaggerItem key={s.step} className="h-full">
               <div className="flex h-full flex-col rounded-[20px] border border-[#e8e8e4] bg-white p-8">

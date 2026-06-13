@@ -19,7 +19,13 @@ export function CheckoutShell({
   size?: "sm" | "md" | "lg";
 }) {
   return (
-    <section className="min-h-[70vh] py-28 sm:py-32">
+    <section className="relative min-h-[70vh] overflow-hidden py-28 sm:py-32">
+      {/* Soft accent ambiance so the focused column never feels stranded on
+          ultra-wide screens. Purely decorative. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[420px] max-w-[900px] bg-[radial-gradient(ellipse_at_top,_rgba(79,124,255,0.12),_transparent_70%)]"
+      />
       <Container size={size}>
         <Reveal y={16} className="mb-12">
           <StepIndicator current={current} />

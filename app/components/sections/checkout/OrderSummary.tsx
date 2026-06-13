@@ -1,6 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Card } from "@/app/components/ui/Card";
+import { Skeleton } from "@/app/components/ui/Skeleton";
+import { cn } from "@/app/lib/cn";
 import { CardThumb } from "./CardThumb";
 import { useCart } from "@/app/components/cart/CartContext";
 import { formatPrice } from "./checkout-data";
@@ -55,7 +58,10 @@ const TrustIcon = ({ icon }: { icon: Trust["icon"] }) => {
 
 /**
  * Item list + price breakdown + trust badges, driven by the cart context so the
- * totals stay in sync with qty / promo / shipping selections across steps.
+ * totals stay in sync with qty / promo / shipping selections across steps. Uses
+ * the glass panel surface and stays sticky alongside tall forms. While the cart
+ * hydrates from storage, the summary shows a graceful shimmer rather than a flash
+ * of default values.
  */
 export function OrderSummary({
   trust = [
@@ -68,58 +74,94 @@ export function OrderSummary({
   trust?: Trust[];
   className?: string;
 }) {
-  const { product, qty, promo, totals } = useCart();
+  const reduce = useReducedMotion();
+  const { hydrated, product, qty, promo, totals } = useCart();
 
   return (
-    <Card tone="card" className={className}>
+    <Card
+      tone="glass"
+      className={cn("lg:sticky lg:top-28", className)}
+    >
       <div className="flex flex-col gap-5 p-6">
         <h2 className="text-lg font-semibold">Order Summary</h2>
 
-        <ul className="flex flex-col gap-4">
-          <li className="flex items-start gap-3">
-            <CardThumb className="h-10 w-10" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium">{product.name}</p>
-              <p className="truncate text-xs text-muted-foreground">
-                {product.variant}
-                {qty > 1 ? ` · Qty ${qty}` : ""}
-              </p>
+        {!hydrated ? (
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <Skeleton className="h-12 w-12 rounded-xl" />
+              <div className="flex flex-1 flex-col gap-2">
+                <Skeleton className="h-3.5 w-32 rounded-full" />
+                <Skeleton className="h-3 w-20 rounded-full" />
+              </div>
             </div>
-            <span className="text-sm font-medium">
-              {formatPrice(product.price * qty)}
-            </span>
-          </li>
-        </ul>
-
-        <div className="h-px bg-border" />
-
-        <dl className="flex flex-col gap-2 text-sm">
-          <div className="flex items-center justify-between">
-            <dt className="text-muted-foreground">Subtotal</dt>
-            <dd>{formatPrice(totals.subtotal)}</dd>
+            <div className="h-px bg-border" />
+            <Skeleton className="h-3 w-full rounded-full" />
+            <Skeleton className="h-3 w-2/3 rounded-full" />
+            <div className="h-px bg-border" />
+            <Skeleton className="h-6 w-28 rounded-full" />
           </div>
-          {totals.discount > 0 ? (
-            <div className="flex items-center justify-between text-emerald-500">
-              <dt>Discount{promo ? ` (${promo})` : ""}</dt>
-              <dd>−{formatPrice(totals.discount)}</dd>
+        ) : (
+          <>
+            <ul className="flex flex-col gap-4">
+              <li className="flex items-center gap-3">
+                <CardThumb
+                  src={product.image}
+                  alt={product.alt}
+                  className="h-12 w-12"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium">{product.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {product.variant}
+                    {qty > 1 ? ` · Qty ${qty}` : ""}
+                  </p>
+                </div>
+                <span className="text-sm font-medium tabular-nums">
+                  {formatPrice(product.price * qty)}
+                </span>
+              </li>
+            </ul>
+
+            <div className="h-px bg-border" />
+
+            <dl className="flex flex-col gap-2.5 text-sm">
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Subtotal</dt>
+                <dd className="tabular-nums">{formatPrice(totals.subtotal)}</dd>
+              </div>
+              <AnimatePresence initial={false}>
+                {totals.discount > 0 ? (
+                  <motion.div
+                    key="discount"
+                    initial={reduce ? false : { height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="flex items-center justify-between overflow-hidden text-emerald-500"
+                  >
+                    <dt>Discount{promo ? ` (${promo})` : ""}</dt>
+                    <dd className="tabular-nums">−{formatPrice(totals.discount)}</dd>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+              <div className="flex items-center justify-between">
+                <dt className="text-muted-foreground">Shipping</dt>
+                <dd className="tabular-nums">{formatPrice(totals.shipping)}</dd>
+              </div>
+            </dl>
+
+            <div className="h-px bg-border" />
+
+            <div className="flex items-baseline justify-between">
+              <span className="text-base font-semibold">Total</span>
+              <span className="font-display text-2xl font-semibold tabular-nums">
+                {formatPrice(totals.total)}
+              </span>
             </div>
-          ) : null}
-          <div className="flex items-center justify-between">
-            <dt className="text-muted-foreground">Shipping</dt>
-            <dd>{formatPrice(totals.shipping)}</dd>
-          </div>
-        </dl>
+          </>
+        )}
 
-        <div className="h-px bg-border" />
-
-        <div className="flex items-center justify-between">
-          <span className="text-base font-semibold">Total</span>
-          <span className="text-xl font-semibold">
-            {formatPrice(totals.total)}
-          </span>
-        </div>
-
-        <ul className="flex flex-col gap-1.5 pt-1 text-xs text-muted">
+        <ul className="flex flex-col gap-1.5 border-t border-border pt-4 text-xs text-muted">
           {trust.map((t) => (
             <li key={t.label} className="flex items-center gap-2">
               <TrustIcon icon={t.icon} />

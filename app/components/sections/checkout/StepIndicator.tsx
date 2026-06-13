@@ -3,7 +3,8 @@ import { steps, type Step } from "./checkout-data";
 
 /**
  * Cart → Shipping → Payment progress rail. Completed steps show a check, the
- * active step is filled, upcoming steps are dimmed. Server component (no state).
+ * active step is filled with the accent, upcoming steps are dimmed. Connectors
+ * fill once a step is cleared. Server component (no state).
  */
 export function StepIndicator({ current }: { current: Step }) {
   const activeIndex = steps.findIndex((s) => s.id === current);
@@ -22,17 +23,19 @@ export function StepIndicator({ current }: { current: Step }) {
               <div className="flex items-center gap-2">
                 <span
                   className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold transition-colors",
-                    done || active
-                      ? "bg-primary text-primary-foreground"
-                      : "border border-border-strong text-muted"
+                    "flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold transition-all duration-300",
+                    active
+                      ? "bg-[var(--accent)] text-white shadow-[0_0_0_4px_rgba(79,124,255,0.18)]"
+                      : done
+                        ? "bg-foreground text-background"
+                        : "border border-border-strong text-muted"
                   )}
                   aria-current={active ? "step" : undefined}
                 >
                   {done ? (
                     <svg
-                      width="12"
-                      height="12"
+                      width="13"
+                      height="13"
                       viewBox="0 0 12 12"
                       fill="none"
                       aria-hidden="true"
@@ -40,7 +43,7 @@ export function StepIndicator({ current }: { current: Step }) {
                       <path
                         d="M2.5 6.5L4.75 8.75L9.5 3.5"
                         stroke="currentColor"
-                        strokeWidth="1.5"
+                        strokeWidth="1.6"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
@@ -51,7 +54,7 @@ export function StepIndicator({ current }: { current: Step }) {
                 </span>
                 <span
                   className={cn(
-                    "text-sm font-medium transition-colors",
+                    "text-sm font-medium transition-colors duration-300",
                     active
                       ? "text-foreground"
                       : done
@@ -65,11 +68,15 @@ export function StepIndicator({ current }: { current: Step }) {
               {i < steps.length - 1 ? (
                 <span
                   aria-hidden="true"
-                  className={cn(
-                    "h-px w-8 sm:w-12",
-                    done ? "bg-border-strong" : "bg-border"
-                  )}
-                />
+                  className="relative h-px w-8 overflow-hidden rounded-full bg-border sm:w-12"
+                >
+                  <span
+                    className={cn(
+                      "absolute inset-0 origin-left bg-foreground/60 transition-transform duration-500 ease-out",
+                      done ? "scale-x-100" : "scale-x-0"
+                    )}
+                  />
+                </span>
               ) : null}
             </li>
           );

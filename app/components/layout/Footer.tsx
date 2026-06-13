@@ -29,7 +29,7 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-[260px]">
             <Link href="/" aria-label="Facile home">
-              <Wordmark />
+              <Wordmark surface="light" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-[#888]">
               The future of professional networking.
