@@ -1,5 +1,6 @@
 import { DevicesHero } from "@/app/components/sections/devices/DevicesHero";
-import { FeaturedDevices } from "@/app/components/sections/devices/FeaturedDevices";
+import { MetalCards } from "@/app/components/sections/devices/MetalCards";
+import { BusinessCards } from "@/app/components/sections/devices/BusinessCards";
 import { ProductShowcase } from "@/app/components/sections/devices/ProductShowcase";
 import { HowItWorks } from "@/app/components/sections/devices/HowItWorks";
 import { ComparePlans } from "@/app/components/sections/devices/ComparePlans";
@@ -13,7 +14,8 @@ export default function DevicesPage() {
   return (
     <>
       <DevicesHero />
-      <FeaturedDevices />
+      <MetalCards />
+      <BusinessCards />
       <ProductShowcase />
       <HowItWorks />
       <ComparePlans />
