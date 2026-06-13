@@ -5,6 +5,7 @@ import { Card } from "@/app/components/ui/Card";
 import { Button } from "@/app/components/ui/Button";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
+import { cn } from "@/app/lib/cn";
 
 type Plan = {
   name: string;
@@ -12,6 +13,7 @@ type Plan = {
   price: string;
   features: string[];
   image: { src: string; alt: string };
+  featured?: boolean;
 };
 
 const plans: Plan[] = [
@@ -28,6 +30,7 @@ const plans: Plan[] = [
     price: "From $49",
     features: ["Brushed aluminum finish", "Laser-engraved QR", "Unlimited profile pages"],
     image: { src: "/pricing/metal-card.png", alt: "Brushed metal card" },
+    featured: true,
   },
   {
     name: "Premium Bundle",
@@ -62,22 +65,36 @@ export function Pricing() {
       id="pricing"
       className="bg-panel text-panel-foreground py-20 sm:py-24 lg:py-28"
     >
-      <Container size="lg">
+      <Container size="full">
         <Reveal>
           <SectionHeading
             align="left"
-            title={<span className="font-display">Choose your card.</span>}
-            description="Standard or Metal. Every card ships with a free digital profile."
+            eyebrow="Pricing"
+            title={
+              <span className="font-display">
+                Choose your <span className="text-gradient">card</span>.
+              </span>
+            }
+            description="Standard, Metal, or both. Every card ships with a free digital profile — no subscription, ever."
           />
         </Reveal>
 
-        <Stagger className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <Stagger className="mx-auto mt-12 grid max-w-[1280px] grid-cols-1 gap-5 md:grid-cols-3">
           {plans.map((plan) => (
             <StaggerItem key={plan.name} className="h-full">
               <Card
                 tone="panel"
-                className="group flex h-full flex-col p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 sm:p-8"
+                className={cn(
+                  "group relative flex h-full flex-col p-6 transition-transform duration-300 ease-out hover:-translate-y-1.5 sm:p-8",
+                  plan.featured &&
+                    "ring-2 ring-[#0a0a0a] shadow-[0_24px_60px_rgba(0,0,0,0.12)]"
+                )}
               >
+                {plan.featured ? (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#0a0a0a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+                    Most popular
+                  </span>
+                ) : null}
                 <div className="mb-6 h-[200px] w-full overflow-hidden rounded-xl">
                   <Image
                     src={plan.image.src}
@@ -101,10 +118,20 @@ export function Pricing() {
                       key={feature}
                       className="flex items-center gap-2 text-[13px] text-panel-foreground/70"
                     >
-                      <span
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="shrink-0 text-[#0a0a0a]/70"
                         aria-hidden
-                        className="size-1 shrink-0 rounded-[2px] bg-panel-muted"
-                      />
+                      >
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
                       {feature}
                     </li>
                   ))}
@@ -116,10 +143,11 @@ export function Pricing() {
                   </span>
                   <Button
                     href="/products"
+                    variant="gradient"
                     size="sm"
-                    className="bg-black px-6 text-white hover:bg-black/90"
+                    className="group/btn px-6"
                   >
-                    Shop Now
+                    Shop now
                     <ArrowIcon />
                   </Button>
                 </div>

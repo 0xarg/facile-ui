@@ -1,14 +1,18 @@
 import type { ReactNode } from "react";
 import { Container } from "@/app/components/ui/Container";
 import { Reveal } from "@/app/components/motion/Reveal";
+import { Tilt } from "@/app/components/motion/Float";
 
 const BRAND_GRADIENT =
   "linear-gradient(135deg, #c4b5fd 0%, #7dd3fc 100%)";
 
 function ProfileCardMock() {
   return (
-    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#e8e7e3] p-6">
-      <div className="w-[260px] rounded-[20px] bg-[#0a0a0a] p-6">
+    <Tilt
+      max={7}
+      className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-[#eceae5] to-[#dedcd6] p-6 ring-1 ring-black/[0.04]"
+    >
+      <div className="w-[260px] rounded-[20px] bg-[#0a0a0a] p-6 shadow-[0_30px_60px_-24px_rgba(0,0,0,0.45)]">
         <div className="flex items-center gap-3">
           <div
             className="size-[52px] shrink-0 rounded-full"
@@ -35,13 +39,13 @@ function ProfileCardMock() {
           )}
         </div>
       </div>
-    </div>
+    </Tilt>
   );
 }
 
 function UrlBarMock() {
   return (
-    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#e8e7e3] p-6">
+    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-[#eceae5] to-[#dedcd6] p-6 ring-1 ring-black/[0.04]">
       <div className="w-[300px]">
         <div className="flex items-center gap-2.5 rounded-xl bg-[#0d0d0d] px-3.5 py-2.5">
           <span className="size-2 shrink-0 rounded bg-[#6ee7b7]" />
@@ -69,7 +73,7 @@ function UrlBarMock() {
 
 function SyncMock() {
   return (
-    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-[#e8e7e3] p-6">
+    <div className="flex h-full w-full items-center justify-center rounded-2xl bg-gradient-to-br from-[#eceae5] to-[#dedcd6] p-6 ring-1 ring-black/[0.04]">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-6 rounded-lg bg-[#0d0d0d] px-3 py-2">
           <span className="text-xs text-[#888]">Profile saved</span>
@@ -137,11 +141,11 @@ export function DigitalProfile() {
         <Reveal>
           <p className={label}>Digital Profile</p>
           <h2 className="font-display mt-4 max-w-xl text-balance text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl md:text-[52px]">
-            Your profile. Always up to date.
+            The profile behind the tap.
           </h2>
           <p className="mt-3 max-w-md text-base text-[#777]">
-            A beautiful, shareable profile page that you can edit anytime from any
-            device.
+            One living page for everything you do — edit it from anywhere, and
+            your card always shows the latest you.
           </p>
         </Reveal>
 

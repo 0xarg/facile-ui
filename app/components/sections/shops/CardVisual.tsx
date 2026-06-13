@@ -1,71 +1,55 @@
+import { Media } from "@/app/components/ui/Media";
 import { cn } from "@/app/lib/cn";
 
 type Tone = "dark" | "steel" | "white";
 
-const tones: Record<Tone, string> = {
-  dark: "bg-gradient-to-br from-[#262626] to-[#0a0a0a]",
-  steel: "bg-gradient-to-br from-[#5b5e66] via-[#3a3d44] to-[#1c1d21]",
-  white: "bg-gradient-to-br from-white to-[#e7e7e4]",
+/** Real product photo per tone. All ship on transparent/neutral backgrounds. */
+const tonePhoto: Record<Tone, { src: string; alt: string }> = {
+  dark: { src: "/images/card.png", alt: "Facile NFC smart card, matte black" },
+  steel: {
+    src: "/cards/hero-card.png",
+    alt: "Facile Metal card, brushed steel finish",
+  },
+  white: {
+    src: "/images/card-2.png",
+    alt: "Facile NFC card, clean matte finish",
+  },
 };
 
 /**
- * CSS-built Facile card mockup used across product tiles — mirrors the
- * Figma "FacileCardVisual" without shipping raster assets.
+ * Floating product photo used across the shop tiles. Defaults to a per-tone
+ * card render, but any `src`/`alt` can be passed for bands, plates, etc.
+ * Hover-zoom lives on the parent `.group`.
  */
 export function CardVisual({
   tone = "dark",
+  src,
+  alt,
   className,
+  priority,
 }: {
   tone?: Tone;
+  src?: string;
+  alt?: string;
   className?: string;
+  priority?: boolean;
 }) {
-  const light = tone === "white";
-  const ink = light ? "rgba(0,0,0,0.45)" : "rgba(255,255,255,0.6)";
-  const dot = light ? "bg-black/15" : "bg-white/30";
-
+  const photo = tonePhoto[tone];
   return (
-    <div className={cn("flex items-center justify-center", className)}>
-      <div
-        className={cn(
-          "relative aspect-[1.585/1] w-[64%] max-w-[220px] overflow-hidden rounded-[14px] shadow-[0_22px_48px_rgba(0,0,0,0.35)]",
-          tones[tone],
-          light && "border border-black/10"
-        )}
-      >
-        {/* nfc dots */}
-        <div className="absolute left-[7%] top-[16%] flex flex-col gap-1.5">
-          {[0, 1, 2].map((row) => (
-            <div key={row} className="flex gap-1">
-              {[0, 1, 2].map((d) => (
-                <span key={d} className={cn("size-[5px] rounded-full", dot)} />
-              ))}
-            </div>
-          ))}
-        </div>
-        {/* mini QR */}
-        <div
-          className={cn(
-            "absolute right-[6%] top-[13%] grid size-7 grid-cols-3 gap-[2px] rounded-[3px] p-[3px]",
-            light ? "bg-black/10" : "bg-white/10"
-          )}
-        >
-          {[1, 0, 1, 0, 1, 1, 1, 0, 1].map((on, i) => (
-            <span
-              key={i}
-              className={cn(
-                "rounded-[1px]",
-                on ? (light ? "bg-black/50" : "bg-white/70") : "bg-transparent"
-              )}
-            />
-          ))}
-        </div>
-        <span
-          className="absolute bottom-[11%] left-[8%] text-[9px] font-bold"
-          style={{ color: ink }}
-        >
-          facile
-        </span>
-      </div>
+    <div
+      className={cn(
+        "relative aspect-square w-full select-none",
+        className
+      )}
+    >
+      <Media
+        src={src ?? photo.src}
+        alt={alt ?? photo.alt}
+        fill
+        priority={priority}
+        sizes="(max-width: 640px) 60vw, (max-width: 1024px) 30vw, 320px"
+        className="object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.4)] transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+      />
     </div>
   );
 }

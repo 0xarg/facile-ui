@@ -1,12 +1,10 @@
 /**
  * FAQ content for the standalone /faq page.
  *
- * The Figma frame (213:5442) only fully populated the "Getting Started" category
- * (those four items use the exact Figma copy). The remaining categories shown as
- * tabs in the design — NFC Cards, Profile & Links, Shipping, Billing, Technical —
- * were placeholders, so their questions/answers are written here for the Facile
- * NFC smart-card product (compatibility, QR fallback, profile updates, shipping,
- * privacy/security, returns, team/bulk orders, etc.).
+ * Copy is hand-written in a warm, human voice for the Facile NFC smart-card
+ * product, grouped into the category tabs shown in the design — Getting Started,
+ * NFC Cards, Profile & Links, Shipping, Billing, Technical (compatibility, QR
+ * fallback, profile updates, shipping, privacy/security, returns, bulk orders).
  */
 export type FaqItem = {
   question: string;
@@ -25,24 +23,24 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Getting Started",
     items: [
       {
-        question: "What is Facile?",
+        question: "What exactly is Facile?",
         answer:
-          "Facile is an all-in-one NFC card and digital profile platform. One tap on your card opens a fully customizable profile with all your links, contact info, and more — no app required.",
+          "Facile is a smart card paired with a digital profile. Tap your card on any phone and it instantly opens your profile — links, socials, contact details, whatever you want to share. Think of it as your whole introduction in a single tap. No app, ever.",
       },
       {
-        question: "How does the NFC card work?",
+        question: "How does the tap actually work?",
         answer:
-          "Each card has a tiny NFC chip embedded inside. When someone holds their phone near the card, the chip wakes up and instantly opens your profile in their browser — no pairing, no battery, and nothing to install.",
+          "There's a tiny NFC chip inside every card. When a phone comes close, the chip wakes up and pops your profile open in the browser — no pairing, no battery, nothing to install. It's the same technology your phone already uses to pay at the till.",
       },
       {
-        question: "Do I need to download an app?",
+        question: "Does anyone need to download an app?",
         answer:
-          "No app required on either end. Your card opens instantly in any mobile browser when tapped, and you manage your profile from any web browser.",
+          "Nope — not you, and not the person you're tapping. Your card opens instantly in any mobile browser, and you edit your profile from any browser too. Zero friction on both ends.",
       },
       {
-        question: "Can I change my profile after I receive the card?",
+        question: "Can I change my profile after my card ships?",
         answer:
-          "Yes — you can update your profile anytime from your Facile dashboard. Changes go live instantly, so your card always points to your most current information.",
+          "Absolutely. Edit your profile anytime and changes go live instantly. New job, new number, new link — your card always points to the latest you, no reprint needed.",
       },
     ],
   },
@@ -53,17 +51,17 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Will it work with my phone?",
         answer:
-          "Yes. Every iPhone from the iPhone 7 onward and virtually all modern Android phones have NFC built in and enabled by default. Just tap the card to the top-back of the device to trigger the link.",
+          "Almost certainly. Every iPhone since the iPhone 7 and basically every modern Android has NFC built in and switched on by default. Just hold the card near the top-back of the phone and your profile pops up.",
       },
       {
-        question: "What if someone's phone can't tap?",
+        question: "What if someone's phone won't tap?",
         answer:
-          "Every Facile card also includes a unique QR code on the back. If a phone can't tap — or NFC is switched off — the other person can simply open their camera and scan the code to reach the exact same profile.",
+          "No problem — every card has a laser-engraved QR code on the back. If a phone can't tap, or NFC happens to be off, they just open the camera, point it at the code, and land on the exact same profile.",
       },
       {
-        question: "Will the card wear out or stop working?",
+        question: "Will the card wear out over time?",
         answer:
-          "No. The NFC chip is passive and has no battery or moving parts, so it won't degrade with normal use. The card is built to keep working for years of everyday tapping.",
+          "It won't. The chip is passive — no battery, no moving parts, nothing to drain or break. Toss it in your wallet and tap away; it's built to keep working for years.",
       },
     ],
   },
@@ -72,19 +70,19 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Profile & Links",
     items: [
       {
-        question: "What can I add to my profile?",
+        question: "What can I put on my profile?",
         answer:
-          "Add your contact details, social profiles, website, payment links, portfolio, calendar booking link, and more. Arrange and label everything exactly how you want it to appear.",
+          "Pretty much anything you'd want to share: contact details, socials, your website, payment links, portfolio, a calendar booking link, and more. Arrange and label every section exactly the way you want people to see it.",
       },
       {
-        question: "Can people save my contact details?",
+        question: "Can people save my contact in one tap?",
         answer:
-          "Yes. Your profile includes a one-tap \"Save Contact\" button that adds your details straight to the visitor's phone as a contact card — no typing required.",
+          "Yes. Your profile has a one-tap \"Save Contact\" button that drops your details straight into the other person's phone as a contact card — no typing, no missed digits.",
       },
       {
-        question: "Can I have more than one card on a profile?",
+        question: "Can I link more than one card to a profile?",
         answer:
-          "Absolutely. You can link multiple cards to a single profile, which is handy if you want a backup card or a card in a different finish. They all point to the same up-to-date profile.",
+          "Of course. Link as many cards as you like to a single profile — handy for a backup, a different finish, or a card you keep at your desk. They all point to the same, always-current profile.",
       },
     ],
   },
@@ -93,19 +91,19 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Shipping",
     items: [
       {
-        question: "How long does shipping take?",
+        question: "How fast will my card arrive?",
         answer:
-          "Cards are printed and dispatched within 2–3 business days. Standard delivery typically arrives in 5–7 business days, and you'll get tracking by email the moment your order ships.",
+          "We print and ship within 2–3 business days, and standard delivery usually lands in 5–7. You'll get a tracking link by email the moment it's on its way.",
       },
       {
         question: "Do you ship internationally?",
         answer:
-          "Yes, we ship worldwide. International delivery times and any customs fees vary by destination, and the estimate is shown at checkout before you pay.",
+          "We do — worldwide. Delivery times and any customs fees depend on where you are, and you'll see the full estimate at checkout before you pay a thing.",
       },
       {
-        question: "What is your return policy?",
+        question: "What's your return policy?",
         answer:
-          "Unused cards can be returned within 30 days for a full refund. If a card ever arrives faulty, we'll replace it free of charge — just reach out to support.",
+          "Unused cards can come back within 30 days for a full refund. And if a card ever shows up faulty, we'll replace it free — just message support and we'll sort it.",
       },
     ],
   },
@@ -114,19 +112,19 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Billing",
     items: [
       {
-        question: "Is there a subscription fee?",
+        question: "Is there a monthly subscription?",
         answer:
-          "No. Your card is a one-time purchase and your digital profile is included free — there's no recurring subscription required to keep it working.",
+          "None. The card is a one-time purchase and your digital profile comes free with it. No recurring fees, no \"premium\" wall to keep it working — buy it once, use it forever.",
       },
       {
-        question: "Do you offer team or bulk orders?",
+        question: "Do you do team or bulk orders?",
         answer:
-          "Yes. We offer volume pricing and centralized management for teams, so you can order branded cards for everyone and manage profiles from one dashboard. Contact us for a quote.",
+          "We do. Teams get volume pricing and a single dashboard to manage everyone's branded cards and profiles in one place. Get in touch and we'll put together a quote.",
       },
       {
         question: "Which payment methods do you accept?",
         answer:
-          "We accept all major credit and debit cards, plus Apple Pay and Google Pay. Every payment is processed over an encrypted, secure connection.",
+          "All the major credit and debit cards, plus Apple Pay and Google Pay. Every payment runs over an encrypted, secure connection.",
       },
     ],
   },
@@ -135,19 +133,19 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Technical",
     items: [
       {
-        question: "Is my data secure?",
+        question: "Is my data safe?",
         answer:
-          "Yes. The NFC chip only stores a link to your profile, never your personal data. You decide exactly which details are public, and you can pause or update your profile at any moment from your account.",
+          "Yes. The chip only ever holds a link to your profile — never your personal data. You choose exactly which details are public, and you can pause or update your profile in seconds from your account.",
       },
       {
-        question: "What happens if I lose my card?",
+        question: "What if I lose my card?",
         answer:
-          "Your profile lives in your account, not on the card itself. If a card is lost, you can deactivate its link from your dashboard so it can no longer open your profile, then order a replacement.",
+          "Your profile lives in your account, not on the card, so nothing personal is exposed. Just deactivate the lost card's link from your dashboard — it'll stop opening your profile — and order a replacement.",
       },
       {
-        question: "Do you sell or share my information?",
+        question: "Do you ever sell my information?",
         answer:
-          "Never. We don't sell your data, and your profile only shares the information you choose to make public. You stay in full control of what visitors can see.",
+          "Never. We don't sell your data, full stop. Your profile only shares what you choose to make public, and you stay in complete control of what visitors can see.",
       },
     ],
   },
