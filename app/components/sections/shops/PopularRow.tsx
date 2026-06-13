@@ -107,7 +107,7 @@ export function PopularRow() {
                     </span>
                     <Button
                       href={`/checkout?product=${p.id}`}
-                      variant="gradient"
+                      variant="primary"
                       size="sm"
                     >
                       Shop now

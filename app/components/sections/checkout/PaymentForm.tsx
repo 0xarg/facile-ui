@@ -205,7 +205,7 @@ export function PaymentForm() {
 
         <Button
           type="button"
-          variant="gradient"
+          variant="primary"
           size="lg"
           className="mt-2 w-full"
           onClick={placeOrder}

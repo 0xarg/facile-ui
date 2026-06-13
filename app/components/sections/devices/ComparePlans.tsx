@@ -164,13 +164,8 @@ export function ComparePlans() {
                     >
                       <Button
                         href={`/checkout?product=${plan.id}`}
-                        variant={plan.featured ? "primary" : "outline"}
-                        className={cn(
-                          "w-full",
-                          plan.featured
-                            ? "bg-black text-white hover:bg-black/90"
-                            : "border-panel-foreground/20 text-panel-foreground hover:bg-black/5"
-                        )}
+                        variant={plan.featured ? "primary" : "secondary"}
+                        className="w-full"
                       >
                         Get Started
                       </Button>

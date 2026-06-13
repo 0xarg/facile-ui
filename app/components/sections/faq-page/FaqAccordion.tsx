@@ -1,10 +1,73 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Container } from "@/app/components/ui/Container";
+import { CategoryTabs } from "@/app/components/ui/CategoryTabs";
 import { cn } from "@/app/lib/cn";
 import { FAQ_CATEGORIES, type FaqItem } from "./faq-data";
+
+/** Minimal line icon per FAQ topic, drawn at 18px on currentColor. */
+function I({ children }: { children: ReactNode }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {children}
+    </svg>
+  );
+}
+
+const TOPIC_ICONS: Record<string, ReactNode> = {
+  "getting-started": (
+    <I>
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    </I>
+  ),
+  "nfc-cards": (
+    <I>
+      <path d="M5 12.55a11 11 0 0 1 14 0" />
+      <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+      <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+      <line x1="12" y1="20" x2="12.01" y2="20" />
+    </I>
+  ),
+  "profile-links": (
+    <I>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </I>
+  ),
+  shipping: (
+    <I>
+      <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+      <path d="M15 18H9" />
+      <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+      <circle cx="7" cy="18" r="2" />
+      <circle cx="17" cy="18" r="2" />
+    </I>
+  ),
+  billing: (
+    <I>
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <line x1="2" y1="10" x2="22" y2="10" />
+    </I>
+  ),
+  technical: (
+    <I>
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+    </I>
+  ),
+};
 
 /** Plus/minus toggle in a circular badge that morphs plus -> minus when open. */
 function ToggleIcon({ isOpen }: { isOpen: boolean }) {
@@ -149,38 +212,22 @@ export function FaqAccordion() {
               stuck? Our team is one message away below.
             </p>
 
-            {/* Category nav: pills on mobile, vertical list on desktop */}
-            <div
-              role="tablist"
-              aria-label="FAQ categories"
-              className="mt-8 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mt-9 lg:flex-col lg:gap-1 lg:overflow-visible"
-            >
-              {FAQ_CATEGORIES.map((cat, index) => {
-                const isActive = index === activeCategory;
-                return (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => {
-                      setActiveCategory(index);
-                      setOpenIndex(0);
-                    }}
-                    className={cn(
-                      "relative shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[14px] font-medium transition-colors",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-panel-foreground/30",
-                      "lg:w-full lg:rounded-lg lg:text-left lg:px-3.5 lg:py-2.5",
-                      isActive
-                        ? "bg-panel-foreground text-panel"
-                        : "bg-panel-foreground/[0.04] text-panel-muted hover:bg-panel-foreground/[0.07] hover:text-panel-foreground lg:bg-transparent lg:hover:bg-panel-foreground/[0.05]"
-                    )}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
-            </div>
+            {/* Category nav: icon + name tiles */}
+            <CategoryTabs
+              ariaLabel="FAQ categories"
+              className="mt-8 lg:mt-9"
+              orientation="vertical"
+              activeId={category.id}
+              onSelect={(id) => {
+                setActiveCategory(FAQ_CATEGORIES.findIndex((c) => c.id === id));
+                setOpenIndex(0);
+              }}
+              items={FAQ_CATEGORIES.map((cat) => ({
+                id: cat.id,
+                label: cat.label,
+                icon: TOPIC_ICONS[cat.id],
+              }))}
+            />
           </div>
 
           {/* Accordion list */}

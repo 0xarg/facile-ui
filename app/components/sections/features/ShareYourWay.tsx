@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Container } from "@/app/components/ui/Container";
+import { Card } from "@/app/components/ui/Card";
 import { Media } from "@/app/components/ui/Media";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
@@ -135,7 +136,10 @@ export function ShareYourWay() {
             <Stagger className="grid gap-5 sm:grid-cols-2">
               {PRIMARY.map((it) => (
                 <StaggerItem key={it.title}>
-                  <div className="flex h-full flex-col rounded-3xl border border-black/[0.06] bg-white p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.18)]">
+                  <Card
+                    tone="panel"
+                    className="flex h-full flex-col rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.18)]"
+                  >
                     <Icon>{it.icon}</Icon>
                     <h3 className="mt-5 text-[15px] font-bold text-[#0a0a0a]">
                       {it.title}
@@ -143,7 +147,7 @@ export function ShareYourWay() {
                     <p className="mt-2 text-sm leading-relaxed text-[#777]">
                       {it.body}
                     </p>
-                  </div>
+                  </Card>
                 </StaggerItem>
               ))}
             </Stagger>
@@ -151,7 +155,10 @@ export function ShareYourWay() {
             <Stagger className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {SECONDARY.map((it) => (
                 <StaggerItem key={it.title}>
-                  <div className="flex h-full flex-col rounded-2xl border border-black/[0.06] bg-white/70 p-5 transition-all duration-300 hover:-translate-y-1 hover:bg-white">
+                  <Card
+                    tone="panel"
+                    className="flex h-full flex-col rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1"
+                  >
                     <Icon>{it.icon}</Icon>
                     <h3 className="mt-4 text-[13px] font-bold text-[#0a0a0a]">
                       {it.title}
@@ -159,7 +166,7 @@ export function ShareYourWay() {
                     <p className="mt-1.5 text-xs leading-relaxed text-[#777]">
                       {it.body}
                     </p>
-                  </div>
+                  </Card>
                 </StaggerItem>
               ))}
             </Stagger>

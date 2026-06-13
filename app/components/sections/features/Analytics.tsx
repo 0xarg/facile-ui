@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Container } from "@/app/components/ui/Container";
+import { Card } from "@/app/components/ui/Card";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
 import { Tilt } from "@/app/components/motion/Float";
@@ -31,13 +32,16 @@ function GlobeIcon() {
 
 function InfoCard({ icon, title, body }: { icon: ReactNode; title: string; body: string }) {
   return (
-    <div className="h-full rounded-2xl border border-black/[0.06] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.18)]">
+    <Card
+      tone="panel"
+      className="h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.18)]"
+    >
       <span className="flex size-9 items-center justify-center rounded-xl bg-black/[0.05]">
         {icon}
       </span>
       <h3 className="mt-5 text-[15px] font-bold text-[#0a0a0a]">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-[#777]">{body}</p>
-    </div>
+    </Card>
   );
 }
 

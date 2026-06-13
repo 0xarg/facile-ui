@@ -149,10 +149,10 @@ export function Confirmation() {
       </motion.div>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Button href="/pay" variant="gradient" size="lg">
+        <Button href="/pay" variant="primary" size="lg">
           Set up my profile →
         </Button>
-        <Button href="/products" variant="outline" size="lg">
+        <Button href="/products" variant="secondary" size="lg">
           Continue shopping
         </Button>
       </div>

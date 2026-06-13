@@ -158,77 +158,79 @@
    loading shimmer. Shared across every page; tuned for the dark/light rhythm.
 --------------------------------------------------------------------------- */
 
-/* Gradient-border pill: dark fill + a bright-top hairline gradient border,
-   like the reference CTA. Reads as premium on both dark and light sections. */
-.btn-gradient-border {
-  position: relative;
-  isolation: isolate;
+/* The two — and only two — site button styles, lifted from the FinalCTA pair.
+   A solid fill with the brand rainbow baked into a 1px hairline border, using
+   the padding-box/border-box gradient trick so the whole pill is one element.
+   .btn-facile = dark/primary, .btn-facile-light = light/secondary. */
+.btn-facile {
   color: #fff;
   background:
-    linear-gradient(180deg, #1b1b1d, #0a0a0b) padding-box,
-    linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.6),
-        rgba(255, 255, 255, 0.08) 45%,
-        rgba(255, 255, 255, 0.18)
-      )
+    linear-gradient(#000, #000) padding-box,
+    conic-gradient(from 180deg, #ff5f6d, #ffc371, #4f7cff, #5fffa6, #ff5f6d)
       border-box;
   border: 1px solid transparent;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 8px 24px rgba(0, 0, 0, 0.28);
-  transition: transform 0.2s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
-/* Soft brand glow that blooms on hover */
-.btn-gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from 180deg,
-    #ff5f6d,
-    #ffc371,
-    #4f7cff,
-    #5fffa6,
-    #ff5f6d
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: -1;
-}
-.btn-gradient-border:hover {
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 12px 36px rgba(0, 0, 0, 0.34);
-}
-.btn-gradient-border:hover::before {
-  opacity: 0.9;
+.btn-facile:hover {
+  opacity: 0.92;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
 }
 
-/* Glassmorphism for cards/panels on DARK surfaces. */
+.btn-facile-light {
+  color: #000;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(from 180deg, #ff5f6d, #ffc371, #4f7cff, #5fffa6, #ff5f6d)
+      border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn-facile-light:hover {
+  opacity: 0.92;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+}
+
+/* Glassmorphism for cards/panels on DARK surfaces. Subtle frosted fill with a
+   faint top sheen + hairline border so it reads premium without shouting. */
 .glass {
-  background: rgba(255, 255, 255, 0.045);
-  backdrop-filter: blur(22px) saturate(150%);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.07) inset,
-    0 24px 60px rgba(0, 0, 0, 0.35);
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 50px rgba(0, 0, 0, 0.3);
 }
 /* Glassmorphism tuned for LIGHT "panel" surfaces. */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(22px) saturate(150%);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.5)
+  );
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 24px 50px rgba(0, 0, 0, 0.07);
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 18px 44px rgba(0, 0, 0, 0.07);
+}
+/* Standardised hover lift for cards. */
+.glass-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 28px 64px rgba(0, 0, 0, 0.34);
 }
 
 /* Brand text gradient for accent words in headings. */

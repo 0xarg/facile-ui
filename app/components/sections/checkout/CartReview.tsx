@@ -120,7 +120,7 @@ export function CartReview() {
                 className="h-11 flex-1 rounded-xl border border-border bg-foreground/5 px-4 text-sm uppercase tracking-wide placeholder:normal-case placeholder:tracking-normal placeholder:text-muted/70 transition-colors focus:border-[var(--accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/25"
               />
               <Button
-                variant="outline"
+                variant="secondary"
                 type="button"
                 className="px-6"
                 disabled={!promoInput.trim()}
@@ -160,7 +160,7 @@ export function CartReview() {
           </div>
         </Card>
 
-        <Button href="/checkout/shipping" variant="gradient" size="lg" className="w-full">
+        <Button href="/checkout/shipping" variant="primary" size="lg" className="w-full">
           Continue to shipping
         </Button>
 

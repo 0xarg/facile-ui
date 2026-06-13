@@ -27,7 +27,7 @@ export function CTA() {
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
-            <Button href="/checkout?product=metal" variant="gradient" size="lg" className="group">
+            <Button href="/checkout?product=metal" variant="primary" size="lg" className="group">
               Shop the lineup
               <svg
                 width="18"
@@ -44,7 +44,7 @@ export function CTA() {
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </Button>
-            <Button href="#compare" variant="outline" size="lg">
+            <Button href="#compare" variant="secondary" size="lg">
               View Pricing
             </Button>
           </div>

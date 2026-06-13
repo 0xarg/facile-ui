@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { Container } from "@/app/components/ui/Container";
 import { Button } from "@/app/components/ui/Button";
+import { Card } from "@/app/components/ui/Card";
+import { Badge } from "@/app/components/ui/Badge";
+import { CategoryTabs } from "@/app/components/ui/CategoryTabs";
 import { cn } from "@/app/lib/cn";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
@@ -106,12 +109,12 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-const TABS: { id: Category; label: string }[] = [
-  { id: "all", label: "All Products" },
-  { id: "plates", label: "Cards" },
-  { id: "metal", label: "Metal" },
-  { id: "bands", label: "Bands" },
-  { id: "bundles", label: "Bundles" },
+const TABS: { id: Category; label: string; thumb: string }[] = [
+  { id: "all", label: "All Products", thumb: "/products/tab-all.png" },
+  { id: "plates", label: "Cards", thumb: "/products/tab-nfc.png" },
+  { id: "metal", label: "Metal", thumb: "/products/tab-metal.png" },
+  { id: "bands", label: "Bands", thumb: "/products/tab-bands.png" },
+  { id: "bundles", label: "Bundles", thumb: "/products/tab-all.png" },
 ];
 
 function ProductCard({ product }: { product: Product }) {
@@ -122,12 +125,18 @@ function ProductCard({ product }: { product: Product }) {
       : "bg-gradient-to-b from-[#f3f2ee] to-[#e7e6e1]";
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-white transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(0,0,0,0.1)]">
+    <Card
+      tone="panel"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(0,0,0,0.1)]"
+    >
       <div className={cn("relative flex aspect-[5/4] items-center justify-center p-7", tileBg)}>
         {product.featured && (
-          <span className="absolute left-4 top-4 z-10 rounded-full bg-black px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+          <Badge
+            tone="solid"
+            className="absolute left-4 top-4 z-10 px-2.5 text-[10px] font-semibold uppercase tracking-[0.12em]"
+          >
             Best seller
-          </span>
+          </Badge>
         )}
         <CardVisual
           tone={product.tone}
@@ -152,14 +161,14 @@ function ProductCard({ product }: { product: Product }) {
           </span>
           <Button
             href={`/checkout?product=${product.id}`}
+            variant="primary"
             size="sm"
-            className="bg-black text-white hover:bg-black/85"
           >
             Add to cart
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -195,30 +204,19 @@ export function Catalog() {
           </p>
         </Reveal>
 
-        {/* category pills */}
-        <div className="-mx-5 mt-10 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-          <div className="flex min-w-max items-center gap-2.5 sm:min-w-0 sm:flex-wrap">
-            {TABS.map((tab) => {
-              const isActive = active === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActive(tab.id)}
-                  aria-pressed={isActive}
-                  className={cn(
-                    "h-10 shrink-0 rounded-full border px-5 text-[14px] font-semibold transition duration-200",
-                    isActive
-                      ? "border-black bg-black text-white"
-                      : "border-panel-border bg-white text-panel-muted hover:border-black/30 hover:text-panel-foreground"
-                  )}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* category tiles */}
+        <CategoryTabs
+          ariaLabel="Product categories"
+          className="mt-10"
+          activeId={active}
+          onSelect={(id) => setActive(id as Category)}
+          items={TABS.map((t) => ({
+            id: t.id,
+            label: t.label,
+            thumb: t.thumb,
+            contain: t.id === "bands",
+          }))}
+        />
 
         {/* info bar */}
         <div className="mt-8 flex flex-wrap items-end justify-between gap-4 border-b border-panel-border pb-5">

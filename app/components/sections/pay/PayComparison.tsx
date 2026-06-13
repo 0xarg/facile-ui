@@ -1,4 +1,5 @@
 import { Container } from "@/app/components/ui/Container";
+import { Card } from "@/app/components/ui/Card";
 import { Reveal } from "@/app/components/motion/Reveal";
 
 const columns = ["Facile Pay", "Traditional Card", "Phone Pay"] as const;
@@ -50,7 +51,7 @@ export function PayComparison() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mt-14 overflow-hidden rounded-[20px] border border-[#e8e8e4] bg-white">
+          <Card tone="panel" className="mt-14 overflow-hidden rounded-[20px]">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[640px] border-collapse text-left">
                 <thead>
@@ -97,7 +98,7 @@ export function PayComparison() {
                 </tbody>
               </table>
             </div>
-          </div>
+          </Card>
         </Reveal>
 
         <Reveal delay={0.15}>

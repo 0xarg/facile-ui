@@ -87,7 +87,7 @@ export function DevicesHero() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
           >
-            <Button href="/checkout?product=metal" variant="gradient" size="lg" className="group">
+            <Button href="/checkout?product=metal" variant="primary" size="lg" className="group">
               Shop the lineup
               <svg
                 width="18"
@@ -104,7 +104,7 @@ export function DevicesHero() {
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </Button>
-            <Button href="#how-it-works" variant="outline" size="lg">
+            <Button href="#how-it-works" variant="secondary" size="lg">
               See how it works
             </Button>
           </motion.div>

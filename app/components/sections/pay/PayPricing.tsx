@@ -1,10 +1,8 @@
 import { Container } from "@/app/components/ui/Container";
+import { Button } from "@/app/components/ui/Button";
 import { Reveal } from "@/app/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/app/components/motion/Stagger";
 import { cn } from "@/app/lib/cn";
-
-const GRADIENT =
-  "linear-gradient(155deg, #c4b5fd 0%, #7dd3fc 50%, #6ee7b7 100%)";
 
 type Plan = {
   eyebrow: string;
@@ -80,61 +78,66 @@ function ArrowIcon() {
 }
 
 function PlanCard({ plan }: { plan: Plan }) {
-  const inner = (
-    <div className="flex h-full flex-col rounded-[19px] bg-[#161616] p-9">
-      <p
-        className={cn(
-          "text-[11px] font-bold uppercase tracking-[0.16em]",
-          plan.featured ? "text-[#c4b5fd]" : "text-[#444]"
-        )}
-      >
-        {plan.eyebrow}
-      </p>
-      <p className="mt-1.5 text-xs text-[#555]">{plan.note}</p>
-      <p className="mt-5 text-[52px] font-extrabold leading-none tracking-tight text-white">
-        {plan.price}
-        {plan.priceSuffix && (
-          <span className="text-base font-normal tracking-normal text-[#555]">
-            {plan.priceSuffix}
-          </span>
-        )}
-      </p>
-
-      <ul className="mt-8 flex flex-1 flex-col gap-3">
-        {plan.features.map((f) => (
-          <li key={f} className="flex items-center gap-2.5 text-sm text-[#888]">
-            <span className="flex size-[18px] shrink-0 items-center justify-center rounded-[9px] bg-white/[0.06]">
-              <CheckIcon />
-            </span>
-            {f}
-          </li>
-        ))}
-      </ul>
-
-      <a
-        href={plan.href}
-        className="mt-8 flex h-11 items-center justify-center gap-1.5 rounded-full bg-white/[0.06] text-sm font-medium text-white transition-colors hover:bg-white/[0.1]"
-      >
-        {plan.cta}
-        <ArrowIcon />
-      </a>
-    </div>
-  );
-
   return (
     <StaggerItem className="h-full">
-      {plan.featured ? (
-        <div
-          className="h-full rounded-[20px] p-px"
-          style={{ backgroundImage: GRADIENT }}
+      <div
+        className={cn(
+          "relative flex h-full flex-col rounded-[22px] border p-9 transition-colors",
+          plan.featured
+            ? "border-white/20 bg-[#151515]"
+            : "border-white/[0.08] bg-[#0d0d0d] hover:border-white/15"
+        )}
+      >
+        <div className="flex items-center justify-between">
+          <p
+            className={cn(
+              "text-[11px] font-bold uppercase tracking-[0.16em]",
+              plan.featured ? "text-white" : "text-[#666]"
+            )}
+          >
+            {plan.eyebrow}
+          </p>
+          {plan.featured && (
+            <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">
+              Most popular
+            </span>
+          )}
+        </div>
+        {!plan.featured && (
+          <p className="mt-1.5 text-xs text-[#555]">{plan.note}</p>
+        )}
+        <p className="mt-5 text-[52px] font-extrabold leading-none tracking-tight text-white">
+          {plan.price}
+          {plan.priceSuffix && (
+            <span className="text-base font-normal tracking-normal text-[#555]">
+              {plan.priceSuffix}
+            </span>
+          )}
+        </p>
+
+        <ul className="mt-8 flex flex-1 flex-col gap-3">
+          {plan.features.map((f) => (
+            <li
+              key={f}
+              className="flex items-center gap-2.5 text-sm text-[#aaa]"
+            >
+              <span className="flex size-[18px] shrink-0 items-center justify-center rounded-[9px] bg-white/[0.08]">
+                <CheckIcon />
+              </span>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <Button
+          href={plan.href}
+          variant={plan.featured ? "primary" : "secondary"}
+          className="mt-8 w-full"
         >
-          {inner}
-        </div>
-      ) : (
-        <div className="h-full rounded-[20px] border border-white/[0.06]">
-          {inner}
-        </div>
-      )}
+          {plan.cta}
+          <ArrowIcon />
+        </Button>
+      </div>
     </StaggerItem>
   );
 }
